@@ -79,14 +79,22 @@ function Popup() {
       </div>
 
       <div className={actionButtons}>
-        <button onClick={handleOpenNewTab} className={actionButton}>
+        <button
+          type="button"
+          onClick={handleOpenNewTab}
+          className={actionButton}
+        >
           Open Dashboard
         </button>
-        <button onClick={handleSync} className={actionButton}>
+        <button type="button" onClick={handleSync} className={actionButton}>
           Sync Now
         </button>
         {storageUsage > 50 && (
-          <button onClick={handleCleanup} className={actionButton}>
+          <button
+            type="button"
+            onClick={handleCleanup}
+            className={actionButton}
+          >
             Cleanup Storage
           </button>
         )}

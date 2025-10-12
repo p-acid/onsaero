@@ -21,8 +21,6 @@ export function useOfflineSupport() {
     lastSync: null,
   });
 
-  const tasks = useTaskStore((state) => state.tasks);
-
   useEffect(() => {
     const updatePendingCount = async () => {
       const allTasks = await getTasks();
@@ -33,7 +31,7 @@ export function useOfflineSupport() {
     };
 
     updatePendingCount();
-  }, [tasks]);
+  }, []);
 
   useEffect(() => {
     const handleOnline = async () => {
@@ -123,13 +121,11 @@ export function OfflineIndicator(): React.ReactElement | null {
       }}
     >
       {isOnline ? (
-        <>
-          {pendingSync > 0 && (
-            <>
-              🔄 Syncing {pendingSync} {pendingSync === 1 ? "task" : "tasks"}...
-            </>
-          )}
-        </>
+        pendingSync > 0 && (
+          <>
+            🔄 Syncing {pendingSync} {pendingSync === 1 ? "task" : "tasks"}...
+          </>
+        )
       ) : (
         <>📡 Offline - changes saved locally</>
       )}

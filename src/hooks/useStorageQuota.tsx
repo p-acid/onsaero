@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getStorageUsage } from "../lib/storage";
 
 interface StorageQuotaInfo {
@@ -24,14 +24,14 @@ export function useStorageQuota() {
     isAvailable: !!chrome?.storage?.sync,
   });
 
-  const refreshQuota = async () => {
+  const refreshQuota = useCallback(async () => {
     const usage = await getStorageUsage();
     setQuotaInfo({
       ...usage,
       usagePercent: Math.round(usage.usage * 100),
       isAvailable: !!chrome?.storage?.sync,
     });
-  };
+  }, []);
 
   useEffect(() => {
     // Initial check
@@ -49,7 +49,7 @@ export function useStorageQuota() {
         chrome.storage.onChanged.removeListener(listener);
       };
     }
-  }, []);
+  }, [refreshQuota]);
 
   return {
     ...quotaInfo,

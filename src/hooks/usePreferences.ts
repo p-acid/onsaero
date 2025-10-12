@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '../api/supabase'
 import { getPreferences, setPreferences } from '../lib/storage'
 import type { UserPreferences } from '../lib/types'
@@ -21,12 +21,7 @@ export function usePreferences() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Load preferences on mount
-  useEffect(() => {
-    loadPreferences()
-  }, [])
-
-  const loadPreferences = async () => {
+  const loadPreferences = useCallback(async () => {
     try {
       setIsLoading(true)
 
@@ -107,7 +102,12 @@ export function usePreferences() {
       setError(err instanceof Error ? err.message : 'Unknown error')
       setIsLoading(false)
     }
-  }
+  }, [])
+
+  // Load preferences on mount
+  useEffect(() => {
+    loadPreferences()
+  }, [loadPreferences])
 
   const updatePreferences = async (
     updates: Partial<Omit<UserPreferences, 'user_id'>>,

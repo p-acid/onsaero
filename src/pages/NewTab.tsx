@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { TaskInput } from '../components/task/TaskInput';
 import { TaskList } from '../components/task/TaskList';
+import { CompletedTaskToggle } from '../components/task/CompletedTaskToggle';
 import { EmptyState } from '../components/ui/EmptyState';
 import {
   useTasksQuery,
@@ -11,6 +13,9 @@ import type { NewTask } from '../lib/types';
 import * as styles from './NewTab.css';
 
 export const NewTab = () => {
+  // State for showing/hiding completed tasks
+  const [showCompleted, setShowCompleted] = useState(false);
+
   // Fetch tasks from Supabase
   const { data: tasks = [], isLoading, error } = useTasksQuery();
 
@@ -165,13 +170,19 @@ export const NewTab = () => {
 
               {tasks.some((task) => task.completed) && (
                 <div className={styles.completedTasks}>
-                  <h2 className={styles.sectionTitle}>Completed</h2>
-                  <TaskList
-                    tasks={tasks.filter((task) => task.completed)}
-                    onToggle={handleToggleTask}
-                    onDelete={handleDeleteTask}
-                    showCompleted={true}
+                  <CompletedTaskToggle
+                    showCompleted={showCompleted}
+                    onToggle={setShowCompleted}
+                    completedCount={tasks.filter((task) => task.completed).length}
                   />
+                  {showCompleted && (
+                    <TaskList
+                      tasks={tasks.filter((task) => task.completed)}
+                      onToggle={handleToggleTask}
+                      onDelete={handleDeleteTask}
+                      showCompleted={true}
+                    />
+                  )}
                 </div>
               )}
             </div>

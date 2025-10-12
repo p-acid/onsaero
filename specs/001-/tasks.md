@@ -90,20 +90,20 @@
 
 ### Implementation for User Story 2
 
-- [ ] T034 [P] [US2] Add completion checkbox to TaskItem component in src/components/task/TaskItem.tsx
-- [ ] T035 [P] [US2] Create CompletedTaskToggle component in src/components/task/CompletedTaskToggle.tsx for show/hide completed tasks
-- [ ] T036 [P] [US2] Style completed task states with vanilla-extract in TaskItem.css.ts (strikethrough, opacity, etc.)
-- [ ] T037 [P] [US2] Style CompletedTaskToggle component in src/components/task/CompletedTaskToggle.css.ts
-- [ ] T038 [US2] Extend task API functions in src/api/tasks.ts (updateTask for completion status)
-- [ ] T039 [US2] Create TanStack Query hooks in src/hooks/useTaskQuery.ts (useUpdateTaskMutation)
-- [ ] T040 [US2] Update taskStore.ts to handle task completion state and toggle visibility
-- [ ] T041 [US2] Update Task interface in src/lib/types.ts to include completed_at timestamp
-- [ ] T042 [US2] Implement task completion/uncompletion workflow with optimistic updates
-- [ ] T043 [US2] Add completed tasks visibility toggle in NewTab.tsx page
-- [ ] T044 [US2] Update TaskList component to filter completed tasks based on toggle state
-- [ ] T045 [US2] Implement completion timestamp tracking in Supabase via database triggers
-- [ ] T046 [US2] Add visual distinction for completed vs active tasks in UI
-- [ ] T047 [US2] Update chrome.storage.sync to persist completion state and toggle preference
+- [X] T034 [P] [US2] Add completion checkbox to TaskItem component in src/components/task/TaskItem.tsx
+- [X] T035 [P] [US2] Create CompletedTaskToggle component in src/components/task/CompletedTaskToggle.tsx for show/hide completed tasks
+- [X] T036 [P] [US2] Style completed task states with vanilla-extract in TaskItem.css.ts (strikethrough, opacity, etc.)
+- [X] T037 [P] [US2] Style CompletedTaskToggle component in src/components/task/CompletedTaskToggle.css.ts
+- [X] T038 [US2] Extend task API functions in src/api/tasks.ts (updateTask for completion status)
+- [X] T039 [US2] Create TanStack Query hooks in src/hooks/useTaskQuery.ts (useUpdateTaskMutation)
+- [X] T040 [US2] Update taskStore.ts to handle task completion state and toggle visibility
+- [X] T041 [US2] Update Task interface in src/lib/types.ts to include completed_at timestamp
+- [X] T042 [US2] Implement task completion/uncompletion workflow with optimistic updates
+- [X] T043 [US2] Add completed tasks visibility toggle in NewTab.tsx page
+- [X] T044 [US2] Update TaskList component to filter completed tasks based on toggle state
+- [X] T045 [US2] Implement completion timestamp tracking in Supabase via database triggers
+- [X] T046 [US2] Add visual distinction for completed vs active tasks in UI
+- [X] T047 [US2] Update chrome.storage.sync to persist completion state and toggle preference
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 

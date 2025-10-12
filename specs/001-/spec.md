@@ -5,6 +5,16 @@
 **Status**: Draft
 **Input**: User description: "할 일 관리와 할 일 및 완료된 일 정보를 기반으로 시각화 해주는 웹 익스텐션을 개발할거야. 새 탭을 교체해서 보여주는 형태로 제공될거고, 메인 화면에는 태스크 추가 및 제거와 대시보드 뷰가 존재할거야."
 
+## Clarifications
+
+### Session 2025-10-11
+
+- Q: Browser target compatibility - Chrome only, Chrome + Firefox, or Chrome + Firefox + Edge? → A: Chrome only (Manifest V3)
+- Q: How should completed tasks be displayed - separate section, mixed inline, or hidden by default? → A: Hidden by default with toggle
+- Q: What time period should dashboard metrics cover - daily, weekly, monthly, all-time, or configurable? → A: Weekly + All-time
+- Q: Which storage API should be used - chrome.storage.local, chrome.storage.sync, or localStorage? → A: chrome.storage.sync
+- Q: Which chart library should be used for visualizations - D3.js, Chart.js, Recharts, or native Canvas? → A: Recharts
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Quick Task Capture (Priority: P1)
@@ -36,7 +46,7 @@ Users can mark tasks as complete to track their progress and build a history of 
 
 1. **Given** the user has active tasks, **When** they click/check a task to mark it complete, **Then** the task is visually marked as completed (e.g., strikethrough, different styling)
 2. **Given** a task is marked complete, **When** the user opens a new tab, **Then** the completed task remains in its completed state
-3. **Given** the user has completed tasks, **When** they view the task list, **Then** they can see both active and completed tasks [NEEDS CLARIFICATION: Should completed tasks be in a separate section, hidden by default, or mixed with active tasks?]
+3. **Given** the user has completed tasks, **When** they view the task list, **Then** active tasks are shown by default; completed tasks are hidden unless the user clicks "Show Completed" toggle button
 4. **Given** a task is marked complete, **When** the user changes their mind, **Then** they can unmark/uncomplete the task to return it to active status
 
 ---
@@ -52,7 +62,7 @@ Users can view visual representations of their task completion patterns and prod
 **Acceptance Scenarios**:
 
 1. **Given** the user has completed tasks, **When** they view the dashboard section, **Then** they see visual charts/graphs showing their productivity metrics
-2. **Given** the user has task history, **When** they access the dashboard, **Then** they see metrics such as total tasks completed, completion rate, and [NEEDS CLARIFICATION: What time period should metrics cover - daily, weekly, monthly, all-time, or configurable?]
+2. **Given** the user has task history, **When** they access the dashboard, **Then** they see metrics for two time periods: weekly (last 7 days breakdown) and all-time (cumulative totals)
 3. **Given** the dashboard is displayed, **When** the user adds or completes tasks, **Then** the visualizations update to reflect the new data
 4. **Given** the user has no task history, **When** they view the dashboard, **Then** they see a helpful empty state explaining that visualizations will appear once they complete tasks
 
@@ -61,7 +71,8 @@ Users can view visual representations of their task completion patterns and prod
 ### Edge Cases
 
 - What happens when the user has hundreds of tasks? (Performance and scrolling behavior)
-- What happens when the user clears browser data? (Data persistence and recovery)
+- What happens when the user clears browser data? (chrome.storage.sync data may persist if synced; local data cleared)
+- What happens if the user exceeds chrome.storage.sync 100KB quota? (Error handling and user notification)
 - What happens if the user opens multiple tabs simultaneously? (Data synchronization)
 - What happens when a task title is extremely long? (Text truncation and display)
 - What happens if the user tries to add an empty task? (Validation)
@@ -76,27 +87,28 @@ Users can view visual representations of their task completion patterns and prod
 - **FR-003**: Users MUST be able to delete/remove tasks from their list
 - **FR-004**: Users MUST be able to mark tasks as complete
 - **FR-005**: Users MUST be able to unmark completed tasks to return them to active status
-- **FR-006**: System MUST persist all task data locally so tasks survive browser restarts
-- **FR-007**: System MUST display a dashboard view showing task completion visualizations
-- **FR-008**: Dashboard MUST show at minimum: total tasks, completed tasks, and completion rate
-- **FR-009**: System MUST sync task data across all browser tabs in real-time
+- **FR-006**: System MUST persist all task data using chrome.storage.sync API so tasks survive browser restarts and sync across devices when user is signed into Chrome
+- **FR-007**: System MUST display a dashboard view showing task completion visualizations using Recharts library
+- **FR-008**: Dashboard MUST show metrics for two time periods: weekly (last 7 days) and all-time, including total tasks, completed tasks, and completion rate for each period
+- **FR-009**: System MUST sync task data across all browser tabs in real-time using chrome.storage.onChanged listener
 - **FR-010**: System MUST handle empty states gracefully (no tasks, no completed tasks, no data for visualizations)
 - **FR-011**: Task input MUST validate that tasks have non-empty titles
 - **FR-012**: System MUST provide visual distinction between active and completed tasks
-- **FR-013**: Extension MUST be installable in [NEEDS CLARIFICATION: Which browsers - Chrome only, Chrome + Firefox, or Chrome + Firefox + Edge?]
+- **FR-014**: Completed tasks MUST be hidden by default; users MUST be able to toggle visibility of completed tasks via a "Show Completed" button
+- **FR-013**: Extension MUST be installable in Chrome (using Manifest V3)
 
 ### Key Entities
 
 - **Task**: Represents a single to-do item. Attributes include unique identifier, title/description, completion status (active/completed), creation timestamp, completion timestamp (if completed), and display order
-- **Dashboard Metrics**: Aggregated statistics derived from tasks. Includes total task count, completed task count, completion rate percentage, and time-based metrics for visualization
+- **Dashboard Metrics**: Aggregated statistics derived from tasks across two time periods (weekly: last 7 days, and all-time). Includes total task count, completed task count, completion rate percentage, and time-based metrics for visualization. Weekly metrics track daily completion patterns; all-time metrics show cumulative totals.
 
 ### Assumptions
 
-- Tasks are stored locally in browser storage (no cloud sync or account system)
+- Tasks are stored using chrome.storage.sync API (syncs across devices when user is signed into Chrome; 100KB quota limit applies)
 - Tasks are single-level (no subtasks or nested hierarchies)
 - Tasks do not have due dates, priorities, tags, or categories in the MVP
-- Visualizations use standard chart types (bar charts, line graphs, pie charts)
-- Extension works in modern browser versions (last 2 major versions)
+- Visualizations use Recharts library (React-based, SVG charts) for rendering bar charts, line graphs, and pie charts
+- Extension targets Chrome browser using Manifest V3 (last 2 major versions)
 - One user per browser profile (no multi-user support)
 - Tasks persist indefinitely (no automatic archival or deletion)
 

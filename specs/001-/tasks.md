@@ -117,24 +117,24 @@
 
 ### Implementation for User Story 3
 
-- [ ] T048 [P] [US3] Create MetricsCard component in src/components/dashboard/MetricsCard.tsx for stat display
-- [ ] T049 [P] [US3] Create WeeklyChart component in src/components/dashboard/WeeklyChart.tsx with Recharts BarChart
-- [ ] T050 [P] [US3] Create AllTimeMetrics component in src/components/dashboard/AllTimeMetrics.tsx with completion rate
-- [ ] T051 [P] [US3] Create Dashboard page component in src/pages/Dashboard.tsx to contain all visualizations
-- [ ] T052 [P] [US3] Style MetricsCard with vanilla-extract in src/components/dashboard/MetricsCard.css.ts
-- [ ] T053 [P] [US3] Style WeeklyChart with vanilla-extract in src/components/dashboard/WeeklyChart.css.ts
-- [ ] T054 [P] [US3] Style AllTimeMetrics with vanilla-extract in src/components/dashboard/AllTimeMetrics.css.ts
-- [ ] T055 [P] [US3] Style Dashboard page with vanilla-extract in src/pages/Dashboard.css.ts
-- [ ] T056 [US3] Create metrics API functions in src/api/metrics.ts (getDailyMetrics, getAllTimeMetrics)
-- [ ] T057 [US3] Create Supabase RPC function get_all_time_metrics in database migration
-- [ ] T058 [US3] Create TanStack Query hooks in src/hooks/useMetrics.ts (useWeeklyMetricsQuery, useAllTimeMetricsQuery)
-- [ ] T059 [US3] Implement daily metrics calculation and aggregation logic
-- [ ] T060 [US3] Add dashboard view toggle in NewTabLayout.tsx (list view vs dashboard view)
-- [ ] T061 [US3] Integrate Dashboard component into NewTab.tsx with lazy loading
-- [ ] T062 [US3] Add EmptyState for dashboard when no task history exists
-- [ ] T063 [US3] Implement real-time dashboard updates when tasks are completed
-- [ ] T064 [US3] Add loading states for dashboard chart components
-- [ ] T065 [US3] Optimize dashboard performance for 1000+ tasks with virtualization
+- [X] T048 [P] [US3] Create MetricsCard component in src/components/dashboard/MetricsCard.tsx for stat display
+- [X] T049 [P] [US3] Create WeeklyChart component in src/components/dashboard/WeeklyChart.tsx with Recharts BarChart
+- [X] T050 [P] [US3] Create AllTimeMetrics component in src/components/dashboard/AllTimeMetrics.tsx with completion rate
+- [X] T051 [P] [US3] Create Dashboard page component in src/pages/Dashboard.tsx to contain all visualizations
+- [X] T052 [P] [US3] Style MetricsCard with vanilla-extract in src/components/dashboard/MetricsCard.css.ts
+- [X] T053 [P] [US3] Style WeeklyChart with vanilla-extract in src/components/dashboard/WeeklyChart.css.ts
+- [X] T054 [P] [US3] Style AllTimeMetrics with vanilla-extract in src/components/dashboard/AllTimeMetrics.css.ts
+- [X] T055 [P] [US3] Style Dashboard page with vanilla-extract in src/pages/Dashboard.css.ts
+- [X] T056 [US3] Create metrics API functions in src/api/metrics.ts (getDailyMetrics, getAllTimeMetrics)
+- [X] T057 [US3] Create Supabase RPC function get_all_time_metrics in database migration
+- [X] T058 [US3] Create TanStack Query hooks in src/hooks/useMetrics.ts (useWeeklyMetricsQuery, useAllTimeMetricsQuery)
+- [X] T059 [US3] Implement daily metrics calculation and aggregation logic
+- [X] T060 [US3] Add dashboard view toggle in NewTabLayout.tsx (list view vs dashboard view)
+- [X] T061 [US3] Integrate Dashboard component into NewTab.tsx with lazy loading
+- [X] T062 [US3] Add EmptyState for dashboard when no task history exists
+- [X] T063 [US3] Implement real-time dashboard updates when tasks are completed
+- [X] T064 [US3] Add loading states for dashboard chart components
+- [X] T065 [US3] Optimize dashboard performance for 1000+ tasks with virtualization
 
 **Checkpoint**: All user stories should now be independently functional
 

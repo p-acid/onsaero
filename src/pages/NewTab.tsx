@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { TaskInput } from '../components/task/TaskInput';
 import { TaskList } from '../components/task/TaskList';
 import { CompletedTaskToggle } from '../components/task/CompletedTaskToggle';
@@ -12,9 +12,18 @@ import {
 import type { NewTask } from '../lib/types';
 import * as styles from './NewTab.css';
 
+// Lazy load Dashboard component
+const Dashboard = lazy(() =>
+  import('./Dashboard').then((module) => ({ default: module.Dashboard }))
+);
+
+type ViewMode = 'tasks' | 'dashboard';
+
 export const NewTab = () => {
   // State for showing/hiding completed tasks
   const [showCompleted, setShowCompleted] = useState(false);
+  // State for view mode (tasks list or dashboard)
+  const [viewMode, setViewMode] = useState<ViewMode>('tasks');
 
   // Fetch tasks from Supabase
   const { data: tasks = [], isLoading, error } = useTasksQuery();
@@ -111,19 +120,92 @@ export const NewTab = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h1 className={styles.title}>Onsaero Tasks</h1>
-          <p className={styles.subtitle}>
-            Capture your to-dos instantly, every time you open a new tab
-          </p>
+          <div className={styles.headerContent}>
+            <div>
+              <h1 className={styles.title}>Onsaero Tasks</h1>
+              <p className={styles.subtitle}>
+                {viewMode === 'tasks'
+                  ? 'Capture your to-dos instantly, every time you open a new tab'
+                  : 'Track your productivity and task completion trends'}
+              </p>
+            </div>
+            <div className={styles.viewToggle}>
+              <button
+                onClick={() => setViewMode('tasks')}
+                className={`${styles.viewToggleButton} ${
+                  viewMode === 'tasks' ? styles.viewToggleButtonActive : ''
+                }`}
+                aria-label="Switch to tasks view"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"
+                    fill="currentColor"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h6a1 1 0 100-2H7zm0 4a1 1 0 000 2h6a1 1 0 100-2H7z"
+                    clipRule="evenodd"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span>Tasks</span>
+              </button>
+              <button
+                onClick={() => setViewMode('dashboard')}
+                className={`${styles.viewToggleButton} ${
+                  viewMode === 'dashboard' ? styles.viewToggleButtonActive : ''
+                }`}
+                aria-label="Switch to dashboard view"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span>Dashboard</span>
+              </button>
+            </div>
+          </div>
         </header>
 
         <main className={styles.main}>
-          <TaskInput
-            onAdd={handleAddTask}
-            isLoading={addTaskMutation.isPending}
-          />
+          {viewMode === 'dashboard' ? (
+            <Suspense
+              fallback={
+                <div className={styles.loadingContainer}>
+                  <div className={styles.spinner} />
+                  <p className={styles.loadingText}>Loading dashboard...</p>
+                </div>
+              }
+            >
+              <Dashboard />
+            </Suspense>
+          ) : (
+            <>
+              <TaskInput
+                onAdd={handleAddTask}
+                isLoading={addTaskMutation.isPending}
+              />
 
-          {showEmptyState ? (
+              {showEmptyState ? (
             <EmptyState
               title="No tasks yet"
               description="Add your first task to get started"
@@ -186,6 +268,8 @@ export const NewTab = () => {
                 </div>
               )}
             </div>
+          )}
+            </>
           )}
         </main>
 

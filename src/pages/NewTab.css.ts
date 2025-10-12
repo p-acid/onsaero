@@ -21,6 +21,63 @@ export const header = style({
   paddingTop: theme.space['2xl'],
 });
 
+export const headerContent = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.space.xl,
+  alignItems: 'center',
+
+  '@media': {
+    '(min-width: 768px)': {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+    },
+  },
+});
+
+export const viewToggle = style({
+  display: 'flex',
+  gap: theme.space.xs,
+  padding: theme.space.xs,
+  backgroundColor: theme.colors.surface,
+  borderRadius: theme.radius.lg,
+  border: `1px solid ${theme.colors.border}`,
+});
+
+export const viewToggleButton = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.space.sm,
+  padding: `${theme.space.sm} ${theme.space.md}`,
+  fontSize: theme.fontSize.sm,
+  fontWeight: theme.fontWeight.medium,
+  color: theme.colors.textSecondary,
+  backgroundColor: 'transparent',
+  border: 'none',
+  borderRadius: theme.radius.md,
+  cursor: 'pointer',
+  transition: `all ${theme.transition.fast}`,
+  whiteSpace: 'nowrap',
+
+  ':hover': {
+    color: theme.colors.text,
+    backgroundColor: theme.colors.background,
+  },
+
+  ':focus-visible': {
+    outline: `2px solid ${theme.colors.primary}`,
+    outlineOffset: '2px',
+  },
+});
+
+export const viewToggleButtonActive = style({
+  color: theme.colors.primary,
+  backgroundColor: theme.colors.background,
+  fontWeight: theme.fontWeight.semibold,
+  boxShadow: theme.shadow.sm,
+});
+
 export const title = style({
   margin: 0,
   marginBottom: theme.space.md,

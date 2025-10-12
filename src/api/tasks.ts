@@ -34,6 +34,7 @@ export const createTask = async (newTask: NewTask): Promise<Task> => {
 
   const insertData: Database['public']['Tables']['tasks']['Insert'] = {
     ...newTask,
+    user_id: null, // Anonymous user for MVP
     display_order: maxOrder + 1,
     completed: false,
   }

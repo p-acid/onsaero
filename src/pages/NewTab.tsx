@@ -1,0 +1,201 @@
+import { TaskInput } from '../components/task/TaskInput';
+import { TaskList } from '../components/task/TaskList';
+import { EmptyState } from '../components/ui/EmptyState';
+import {
+  useTasksQuery,
+  useAddTaskMutation,
+  useToggleTaskMutation,
+  useDeleteTaskMutation,
+} from '../hooks/useTaskQuery';
+import type { NewTask } from '../lib/types';
+import * as styles from './NewTab.css';
+
+export const NewTab = () => {
+  // Fetch tasks from Supabase
+  const { data: tasks = [], isLoading, error } = useTasksQuery();
+
+  // Mutations
+  const addTaskMutation = useAddTaskMutation();
+  const toggleTaskMutation = useToggleTaskMutation();
+  const deleteTaskMutation = useDeleteTaskMutation();
+
+  // Handler for adding a new task
+  const handleAddTask = async (newTask: NewTask) => {
+    try {
+      await addTaskMutation.mutateAsync(newTask);
+    } catch (error) {
+      console.error('Failed to add task:', error);
+      // Error is automatically handled by TanStack Query's onError
+    }
+  };
+
+  // Handler for toggling task completion
+  const handleToggleTask = async (taskId: string) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+
+    try {
+      await toggleTaskMutation.mutateAsync({
+        id: taskId,
+        completed: !task.completed,
+      });
+    } catch (error) {
+      console.error('Failed to toggle task:', error);
+    }
+  };
+
+  // Handler for deleting a task
+  const handleDeleteTask = async (taskId: string) => {
+    // Simple confirmation dialog
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${task.title}"?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      await deleteTaskMutation.mutateAsync(taskId);
+    } catch (error) {
+      console.error('Failed to delete task:', error);
+    }
+  };
+
+  // Error state
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.errorContainer}>
+            <h2 className={styles.errorTitle}>Failed to load tasks</h2>
+            <p className={styles.errorMessage}>
+              {error instanceof Error ? error.message : 'An unknown error occurred'}
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className={styles.retryButton}
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.loadingContainer}>
+            <div className={styles.spinner} />
+            <p className={styles.loadingText}>Loading your tasks...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const hasActiveTasks = tasks.some((task) => !task.completed);
+  const showEmptyState = tasks.length === 0;
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Onsaero Tasks</h1>
+          <p className={styles.subtitle}>
+            Capture your to-dos instantly, every time you open a new tab
+          </p>
+        </header>
+
+        <main className={styles.main}>
+          <TaskInput
+            onAdd={handleAddTask}
+            isLoading={addTaskMutation.isPending}
+          />
+
+          {showEmptyState ? (
+            <EmptyState
+              title="No tasks yet"
+              description="Add your first task to get started"
+              icon={
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="12"
+                    y="12"
+                    width="40"
+                    height="40"
+                    rx="4"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M20 30 L28 38 L44 22"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              }
+            />
+          ) : (
+            <div className={styles.taskSection}>
+              {hasActiveTasks && (
+                <div className={styles.activeTasks}>
+                  <h2 className={styles.sectionTitle}>Active Tasks</h2>
+                  <TaskList
+                    tasks={tasks.filter((task) => !task.completed)}
+                    onToggle={handleToggleTask}
+                    onDelete={handleDeleteTask}
+                    showCompleted={false}
+                  />
+                </div>
+              )}
+
+              {tasks.some((task) => task.completed) && (
+                <div className={styles.completedTasks}>
+                  <h2 className={styles.sectionTitle}>Completed</h2>
+                  <TaskList
+                    tasks={tasks.filter((task) => task.completed)}
+                    onToggle={handleToggleTask}
+                    onDelete={handleDeleteTask}
+                    showCompleted={true}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+        </main>
+
+        {addTaskMutation.isError && (
+          <div className={styles.toast} role="alert">
+            Failed to add task. Please try again.
+          </div>
+        )}
+
+        {deleteTaskMutation.isError && (
+          <div className={styles.toast} role="alert">
+            Failed to delete task. Please try again.
+          </div>
+        )}
+
+        {toggleTaskMutation.isError && (
+          <div className={styles.toast} role="alert">
+            Failed to update task. Please try again.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

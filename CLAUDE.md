@@ -8,12 +8,14 @@ This is a React + TypeScript + Vite project using React 19 with SWC for Fast Ref
 
 ## Development Commands
 
-- `npm run dev` - Start development server with HMR
-- `npm run build` - Type check and build for production
-- `npm run lint` - Check code with Biome (linting and formatting)
-- `npm run lint:fix` - Fix auto-fixable issues with Biome
-- `npm run format` - Format code with Biome
-- `npm run preview` - Preview production build locally
+**Note**: This project uses **pnpm** as the package manager. All commands should use `pnpm` instead of `npm`.
+
+- `pnpm run dev` - Start development server with HMR
+- `pnpm run build` - Type check and build for production
+- `pnpm run lint` - Check code with Biome (linting and formatting)
+- `pnpm run lint:fix` - Fix auto-fixable issues with Biome
+- `pnpm run format` - Format code with Biome
+- `pnpm run preview` - Preview production build locally
 
 ## Tech Stack
 
@@ -32,7 +34,7 @@ The project uses a composite TypeScript setup:
   - `verbatimModuleSyntax` for precise import/export handling
 - `tsconfig.node.json` - Build tooling configuration
 
-When running `npm run build`, TypeScript compiles using the `-b` (build mode) flag which respects the composite project structure.
+When running `pnpm run build`, TypeScript compiles using the `-b` (build mode) flag which respects the composite project structure.
 
 ## Biome Configuration
 

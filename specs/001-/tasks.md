@@ -61,22 +61,22 @@
 
 ### Implementation for User Story 1
 
-- [ ] T018 [P] [US1] Create TaskInput component in src/components/task/TaskInput.tsx with form validation
-- [ ] T019 [P] [US1] Create TaskItem component in src/components/task/TaskItem.tsx for individual task display
-- [ ] T020 [P] [US1] Create TaskList component in src/components/task/TaskList.tsx for task collection display
-- [ ] T021 [P] [US1] Create EmptyState component in src/components/ui/EmptyState.tsx for no tasks state
-- [ ] T022 [P] [US1] Style TaskInput component with vanilla-extract in src/components/task/TaskInput.css.ts
-- [ ] T023 [P] [US1] Style TaskItem component with vanilla-extract in src/components/task/TaskItem.css.ts
-- [ ] T024 [P] [US1] Style TaskList component with vanilla-extract in src/components/task/TaskList.css.ts
-- [ ] T025 [US1] Create task API functions in src/api/tasks.ts (createTask, getTasks, deleteTask)
-- [ ] T026 [US1] Create TanStack Query hooks in src/hooks/useTaskQuery.ts (useTasksQuery, useAddTaskMutation, useDeleteTaskMutation)
-- [ ] T027 [US1] Implement chrome.storage.sync integration in taskStore.ts for local persistence
-- [ ] T028 [US1] Integrate TaskInput, TaskList, and EmptyState in src/pages/NewTab.tsx
-- [ ] T029 [US1] Add task creation workflow with optimistic updates
-- [ ] T030 [US1] Add task deletion functionality with confirmation
-- [ ] T031 [US1] Implement real-time sync across browser tabs using chrome.storage.onChanged
-- [ ] T032 [US1] Add input validation (non-empty title, max 500 characters)
-- [ ] T033 [US1] Add error handling for storage quota and network issues
+- [X] T018 [P] [US1] Create TaskInput component in src/components/task/TaskInput.tsx with form validation
+- [X] T019 [P] [US1] Create TaskItem component in src/components/task/TaskItem.tsx for individual task display
+- [X] T020 [P] [US1] Create TaskList component in src/components/task/TaskList.tsx for task collection display
+- [X] T021 [P] [US1] Create EmptyState component in src/components/ui/EmptyState.tsx for no tasks state
+- [X] T022 [P] [US1] Style TaskInput component with vanilla-extract in src/components/task/TaskInput.css.ts
+- [X] T023 [P] [US1] Style TaskItem component with vanilla-extract in src/components/task/TaskItem.css.ts
+- [X] T024 [P] [US1] Style TaskList component with vanilla-extract in src/components/task/TaskList.css.ts
+- [X] T025 [US1] Create task API functions in src/api/tasks.ts (createTask, getTasks, deleteTask)
+- [X] T026 [US1] Create TanStack Query hooks in src/hooks/useTaskQuery.ts (useTasksQuery, useAddTaskMutation, useDeleteTaskMutation)
+- [X] T027 [US1] Implement chrome.storage.sync integration in taskStore.ts for local persistence
+- [X] T028 [US1] Integrate TaskInput, TaskList, and EmptyState in src/pages/NewTab.tsx
+- [X] T029 [US1] Add task creation workflow with optimistic updates
+- [X] T030 [US1] Add task deletion functionality with confirmation
+- [X] T031 [US1] Implement real-time sync across browser tabs using chrome.storage.onChanged
+- [X] T032 [US1] Add input validation (non-empty title, max 500 characters)
+- [X] T033 [US1] Add error handling for storage quota and network issues
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 

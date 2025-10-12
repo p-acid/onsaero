@@ -211,6 +211,17 @@ export const syncStorageData = async (
 }
 
 /**
+ * Sync tasks to storage (used by TanStack Query hooks)
+ */
+export const syncTasksToStorage = async (tasks: Task[]): Promise<boolean> => {
+  const success = await setTasks(tasks)
+  if (success) {
+    await setLastSync(new Date().toISOString())
+  }
+  return success
+}
+
+/**
  * Cleanup old completed tasks to free up storage
  * Removes completed tasks older than the specified number of days
  */

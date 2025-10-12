@@ -1,22 +1,27 @@
 <!--
 Sync Impact Report - Constitution Update
 =========================================
-Version Change: Initial → 1.0.0
-Change Type: MAJOR (Initial constitution ratification)
+Version Change: 1.0.0 → 1.1.0
+Change Type: MINOR (Expanded package manager guidance)
 
-Principles Defined:
-  - Type Safety First
-  - Modern Tooling
-  - Component-Driven Architecture
-  - Fast Feedback Loop
-  - Build Performance
+Principles Modified:
+  - Modern Tooling - Added pnpm as required package manager
+  - Dependency Management - Expanded with pnpm-specific guidance
 
-Templates Status:
-  ✅ plan-template.md - Reviewed, compatible with constitution check section
-  ✅ spec-template.md - Reviewed, requirements align with principles
-  ✅ tasks-template.md - Reviewed, task organization supports all principles
+Sections Added:
+  - None (expanded existing sections)
 
-Follow-up Items: None
+Sections Removed:
+  - None
+
+Templates Requiring Updates:
+  ✅ plan-template.md - Constitution Check gate compatible, no changes needed
+  ✅ spec-template.md - No dependency on package manager commands
+  ✅ tasks-template.md - No dependency on package manager commands
+  ✅ CLAUDE.md - Updated all npm commands to pnpm
+
+Follow-up Items:
+  - None (all documentation synchronized)
 -->
 
 # Onsaero Constitution
@@ -41,9 +46,10 @@ Development tooling MUST prioritize speed and developer experience:
 - Vite for build tooling (leverages native ES modules and esbuild)
 - SWC for Fast Refresh (faster than Babel)
 - Biome for linting and formatting (unified, fast tooling)
+- **pnpm** as the package manager (faster, more efficient disk usage, stricter dependency resolution)
 - Avoid adding tools that duplicate existing functionality
 
-**Rationale**: Modern tools significantly reduce iteration time. Vite's sub-second HMR, SWC's compilation speed, and Biome's all-in-one approach eliminate bottlenecks in the development loop.
+**Rationale**: Modern tools significantly reduce iteration time. Vite's sub-second HMR, SWC's compilation speed, Biome's all-in-one approach, and pnpm's efficiency eliminate bottlenecks in the development loop. pnpm's strict resolution prevents phantom dependencies and reduces disk space through content-addressable storage.
 
 ### III. Component-Driven Architecture
 
@@ -80,24 +86,29 @@ Production builds MUST be optimized for performance:
 ### Code Quality Gates
 
 All code changes MUST pass these gates before merge:
-1. **Type Check**: `npm run build` completes without errors
-2. **Linting**: `npm run lint` reports no violations
+1. **Type Check**: `pnpm run build` completes without errors
+2. **Linting**: `pnpm run lint` reports no violations
 3. **Formatting**: Code follows Biome's formatting rules
 4. **Build**: Production build succeeds
 
 ### Local Development Standards
 
-- Use `npm run dev` for development with HMR
-- Run `npm run lint:fix` before committing to auto-fix issues
-- Run `npm run format` to ensure consistent style
+- Use `pnpm run dev` for development with HMR
+- Run `pnpm run lint:fix` before committing to auto-fix issues
+- Run `pnpm run format` to ensure consistent style
 - Commit messages should be concise and descriptive
 
 ### Dependency Management
 
+- **MUST use pnpm** for all package operations (install, add, remove, update)
 - Avoid unnecessary dependencies; evaluate bundle size impact
 - Keep dependencies up to date with security patches
 - Document non-obvious dependency choices in CLAUDE.md
-- Use exact versions for Biome to ensure consistency (`--save-exact`)
+- Use exact versions for Biome to ensure consistency (`pnpm add -E @biomejs/biome`)
+- Leverage pnpm workspaces for monorepo structures if project scales
+- Commit `pnpm-lock.yaml` to ensure reproducible installs
+
+**Rationale for pnpm**: pnpm provides faster installs (parallel downloads, hard links), significantly reduced disk usage (single content-addressable store), and stricter dependency resolution that prevents accidental reliance on undeclared dependencies. Its workspace features enable efficient monorepo management if needed.
 
 ## React-Specific Standards
 
@@ -148,4 +159,4 @@ Constitution changes MUST:
 
 For implementation-time guidance and context, refer to `CLAUDE.md` which provides practical development information complementing these principles.
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-11 | **Last Amended**: 2025-10-11
+**Version**: 1.1.0 | **Ratified**: 2025-10-11 | **Last Amended**: 2025-10-12

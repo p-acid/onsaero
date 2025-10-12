@@ -1,9 +1,6 @@
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 -- Tasks table
 CREATE TABLE tasks (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   title TEXT NOT NULL CHECK (char_length(title) > 0 AND char_length(title) <= 500),
   completed BOOLEAN NOT NULL DEFAULT false,
@@ -48,7 +45,7 @@ CREATE TRIGGER update_tasks_completed_at BEFORE UPDATE ON tasks
 
 -- Daily metrics table
 CREATE TABLE daily_metrics (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   date DATE NOT NULL,
   tasks_created INTEGER NOT NULL DEFAULT 0,

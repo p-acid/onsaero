@@ -7,10 +7,6 @@
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
-  "background": {
-    "service_worker": "src/background/service-worker.ts",
-    "type": "module"
-  },
   "action": {
     "default_icon": {
       "16": "icons/icon16.png",

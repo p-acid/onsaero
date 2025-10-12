@@ -22,12 +22,12 @@
 
 **Purpose**: Project initialization and Chrome extension structure
 
-- [ ] T001 Install Chrome extension dependencies (@crxjs/vite-plugin, @vanilla-extract/vite-plugin, @tanstack/react-query, zustand, recharts, @supabase/supabase-js)
-- [ ] T002 [P] Configure Vite for Chrome extension with @crxjs/vite-plugin in vite.config.ts
-- [ ] T003 [P] Create Chrome extension manifest.json in src/ with new tab override and permissions
-- [ ] T004 [P] Create newtab.html entry point in project root
-- [ ] T005 [P] Setup vanilla-extract theme system in src/styles/theme.css.ts
-- [ ] T006 [P] Configure Biome linting and formatting for extension development
+- [X] T001 Install Chrome extension dependencies (@crxjs/vite-plugin, @vanilla-extract/vite-plugin, @tanstack/react-query, zustand, recharts, @supabase/supabase-js)
+- [X] T002 [P] Configure Vite for Chrome extension with @crxjs/vite-plugin in vite.config.ts
+- [X] T003 [P] Create Chrome extension manifest.json in src/ with new tab override and permissions
+- [X] T004 [P] Create newtab.html entry point in project root
+- [X] T005 [P] Setup vanilla-extract theme system in src/styles/theme.css.ts
+- [X] T006 [P] Configure Biome linting and formatting for extension development
 
 ---
 

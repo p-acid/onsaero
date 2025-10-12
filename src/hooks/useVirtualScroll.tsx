@@ -1,20 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface VirtualScrollOptions {
-  itemHeight: number
-  containerHeight: number
-  overscan?: number
+  itemHeight: number;
+  containerHeight: number;
+  overscan?: number;
 }
 
 interface VirtualScrollResult<T> {
   virtualItems: Array<{
-    index: number
-    item: T
-    offsetTop: number
-  }>
-  totalHeight: number
-  containerRef: React.RefObject<HTMLDivElement>
-  scrollToIndex: (index: number) => void
+    index: number;
+    item: T;
+    offsetTop: number;
+  }>;
+  totalHeight: number;
+  containerRef: React.RefObject<HTMLDivElement>;
+  scrollToIndex: (index: number) => void;
 }
 
 /**
@@ -23,91 +23,91 @@ interface VirtualScrollResult<T> {
  */
 export function useVirtualScroll<T>(
   items: T[],
-  options: VirtualScrollOptions,
+  options: VirtualScrollOptions
 ): VirtualScrollResult<T> {
-  const { itemHeight, containerHeight, overscan = 5 } = options
+  const { itemHeight, containerHeight, overscan = 5 } = options;
 
-  const [scrollTop, setScrollTop] = useState(0)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [scrollTop, setScrollTop] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Calculate visible range
   const { startIndex, endIndex, totalHeight } = useMemo(() => {
-    const itemCount = items.length
-    const totalHeight = itemCount * itemHeight
+    const itemCount = items.length;
+    const totalHeight = itemCount * itemHeight;
 
     const startIndex = Math.max(
       0,
-      Math.floor(scrollTop / itemHeight) - overscan,
-    )
+      Math.floor(scrollTop / itemHeight) - overscan
+    );
     const endIndex = Math.min(
       itemCount - 1,
-      Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan,
-    )
+      Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan
+    );
 
-    return { startIndex, endIndex, totalHeight }
-  }, [items.length, itemHeight, scrollTop, containerHeight, overscan])
+    return { startIndex, endIndex, totalHeight };
+  }, [items.length, itemHeight, scrollTop, containerHeight, overscan]);
 
   // Generate virtual items
   const virtualItems = useMemo(() => {
-    const result = []
+    const result = [];
     for (let i = startIndex; i <= endIndex; i++) {
       if (items[i]) {
         result.push({
           index: i,
           item: items[i],
           offsetTop: i * itemHeight,
-        })
+        });
       }
     }
-    return result
-  }, [items, startIndex, endIndex, itemHeight])
+    return result;
+  }, [items, startIndex, endIndex, itemHeight]);
 
   // Handle scroll
   useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+    const container = containerRef.current;
+    if (!container) return;
 
     const handleScroll = () => {
-      setScrollTop(container.scrollTop)
-    }
+      setScrollTop(container.scrollTop);
+    };
 
-    container.addEventListener('scroll', handleScroll, { passive: true })
+    container.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      container.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Scroll to index
   const scrollToIndex = (index: number) => {
-    const container = containerRef.current
-    if (!container) return
+    const container = containerRef.current;
+    if (!container) return;
 
-    const offsetTop = index * itemHeight
-    container.scrollTo({ top: offsetTop, behavior: 'smooth' })
-  }
+    const offsetTop = index * itemHeight;
+    container.scrollTo({ top: offsetTop, behavior: "smooth" });
+  };
 
   return {
     virtualItems,
     totalHeight,
     containerRef: containerRef as React.RefObject<HTMLDivElement>,
     scrollToIndex,
-  }
+  };
 }
 
-import type React from 'react'
+import type React from "react";
 
 /**
  * Virtual scrolling container component
  */
 interface VirtualListProps<T> {
-  items: T[]
-  itemHeight: number
-  containerHeight: number
-  renderItem: (item: T, index: number) => React.ReactNode
-  keyExtractor: (item: T, index: number) => string | number
-  overscan?: number
-  className?: string
+  items: T[];
+  itemHeight: number;
+  containerHeight: number;
+  renderItem: (item: T, index: number) => React.ReactNode;
+  keyExtractor: (item: T, index: number) => string | number;
+  overscan?: number;
+  className?: string;
 }
 
 export function VirtualList<T>({
@@ -123,7 +123,7 @@ export function VirtualList<T>({
     itemHeight,
     containerHeight,
     overscan,
-  })
+  });
 
   return (
     <div
@@ -131,21 +131,21 @@ export function VirtualList<T>({
       className={className}
       style={{
         height: containerHeight,
-        overflow: 'auto',
-        position: 'relative',
+        overflow: "auto",
+        position: "relative",
       }}
     >
       <div
         style={{
           height: totalHeight,
-          position: 'relative',
+          position: "relative",
         }}
       >
         {virtualItems.map(({ index, item, offsetTop }) => (
           <div
             key={keyExtractor(item, index)}
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: offsetTop,
               left: 0,
               right: 0,
@@ -157,7 +157,7 @@ export function VirtualList<T>({
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 /**

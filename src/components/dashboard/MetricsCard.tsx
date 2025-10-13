@@ -1,15 +1,15 @@
-import type { ReactNode } from 'react';
-import * as styles from './MetricsCard.css';
+import type { ReactNode } from 'react'
+import * as styles from './MetricsCard.css'
 
 interface MetricsCardProps {
-  title: string;
-  value: string | number;
-  subtitle?: string;
-  icon?: ReactNode;
+  title: string
+  value: string | number
+  subtitle?: string
+  icon?: ReactNode
   trend?: {
-    value: number;
-    isPositive: boolean;
-  };
+    value: number
+    isPositive: boolean
+  }
 }
 
 export const MetricsCard = ({
@@ -38,12 +38,10 @@ export const MetricsCard = ({
             <span className={styles.trendIcon}>
               {trend.isPositive ? '↑' : '↓'}
             </span>
-            <span className={styles.trendValue}>
-              {Math.abs(trend.value)}%
-            </span>
+            <span className={styles.trendValue}>{Math.abs(trend.value)}%</span>
           </div>
         )}
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,19 +1,19 @@
 import {
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from 'recharts';
-import type { DailyMetric } from '../../lib/types';
-import * as styles from './WeeklyChart.css';
+} from 'recharts'
+import type { DailyMetric } from '../../lib/types'
+import * as styles from './WeeklyChart.css'
 
 interface WeeklyChartProps {
-  data: DailyMetric[];
-  isLoading?: boolean;
+  data: DailyMetric[]
+  isLoading?: boolean
 }
 
 export const WeeklyChart = ({ data, isLoading }: WeeklyChartProps) => {
@@ -25,7 +25,7 @@ export const WeeklyChart = ({ data, isLoading }: WeeklyChartProps) => {
           <p className={styles.loadingText}>Loading chart data...</p>
         </div>
       </div>
-    );
+    )
   }
 
   if (data.length === 0) {
@@ -33,7 +33,7 @@ export const WeeklyChart = ({ data, isLoading }: WeeklyChartProps) => {
       <div className={styles.container}>
         <p className={styles.emptyText}>No data available for the past week</p>
       </div>
-    );
+    )
   }
 
   // Format data for Recharts
@@ -45,7 +45,7 @@ export const WeeklyChart = ({ data, isLoading }: WeeklyChartProps) => {
     }),
     created: metric.tasks_created,
     completed: metric.tasks_completed,
-  }));
+  }))
 
   return (
     <div className={styles.container}>
@@ -89,5 +89,5 @@ export const WeeklyChart = ({ data, isLoading }: WeeklyChartProps) => {
         </BarChart>
       </ResponsiveContainer>
     </div>
-  );
-};
+  )
+}

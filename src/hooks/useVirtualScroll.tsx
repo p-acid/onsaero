@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface VirtualScrollOptions {
   itemHeight: number
@@ -23,7 +23,7 @@ interface VirtualScrollResult<T> {
  */
 export function useVirtualScroll<T>(
   items: T[],
-  options: VirtualScrollOptions
+  options: VirtualScrollOptions,
 ): VirtualScrollResult<T> {
   const { itemHeight, containerHeight, overscan = 5 } = options
 
@@ -35,10 +35,13 @@ export function useVirtualScroll<T>(
     const itemCount = items.length
     const totalHeight = itemCount * itemHeight
 
-    const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan)
+    const startIndex = Math.max(
+      0,
+      Math.floor(scrollTop / itemHeight) - overscan,
+    )
     const endIndex = Math.min(
       itemCount - 1,
-      Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan
+      Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan,
     )
 
     return { startIndex, endIndex, totalHeight }

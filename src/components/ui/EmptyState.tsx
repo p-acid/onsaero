@@ -1,9 +1,9 @@
-import * as styles from './EmptyState.css';
+import * as styles from './EmptyState.css'
 
 interface EmptyStateProps {
-  title?: string;
-  description?: string;
-  icon?: React.ReactNode;
+  title?: string
+  description?: string
+  icon?: React.ReactNode
 }
 
 export const EmptyState = ({
@@ -17,5 +17,5 @@ export const EmptyState = ({
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.description}>{description}</p>
     </div>
-  );
-};
+  )
+}

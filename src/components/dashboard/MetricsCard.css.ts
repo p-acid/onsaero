@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css';
-import theme from '../../styles/theme.css';
+import { style } from '@vanilla-extract/css'
+import theme from '../../styles/theme.css'
 
 export const card = style({
   display: 'flex',
@@ -14,7 +14,7 @@ export const card = style({
     boxShadow: theme.shadow.md,
     borderColor: theme.colors.primary,
   },
-});
+})
 
 export const iconContainer = style({
   display: 'flex',
@@ -26,14 +26,14 @@ export const iconContainer = style({
   backgroundColor: theme.colors.primaryLight,
   color: theme.colors.primary,
   flexShrink: 0,
-});
+})
 
 export const content = style({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
   gap: theme.space.xs,
-});
+})
 
 export const title = style({
   fontSize: theme.fontSize.sm,
@@ -42,20 +42,20 @@ export const title = style({
   textTransform: 'uppercase',
   letterSpacing: '0.5px',
   margin: 0,
-});
+})
 
 export const value = style({
   fontSize: theme.fontSize['3xl'],
   fontWeight: theme.fontWeight.bold,
   color: theme.colors.text,
   lineHeight: theme.lineHeight.tight,
-});
+})
 
 export const subtitle = style({
   fontSize: theme.fontSize.sm,
   color: theme.colors.textTertiary,
   margin: 0,
-});
+})
 
 export const trend = style({
   display: 'flex',
@@ -64,21 +64,21 @@ export const trend = style({
   fontSize: theme.fontSize.sm,
   fontWeight: theme.fontWeight.medium,
   marginTop: theme.space.xs,
-});
+})
 
 export const trendIcon = style({
   fontSize: theme.fontSize.lg,
   lineHeight: 1,
-});
+})
 
 export const trendValue = style({
   fontVariantNumeric: 'tabular-nums',
-});
+})
 
 export const trendPositive = style({
   color: theme.colors.success,
-});
+})
 
 export const trendNegative = style({
   color: theme.colors.error,
-});
+})

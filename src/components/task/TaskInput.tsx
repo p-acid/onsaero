@@ -1,37 +1,37 @@
-import { useState, type FormEvent } from 'react';
-import type { NewTask } from '../../lib/types';
-import * as styles from './TaskInput.css';
+import { type FormEvent, useState } from 'react'
+import type { NewTask } from '../../lib/types'
+import * as styles from './TaskInput.css'
 
 interface TaskInputProps {
-  onAdd: (task: NewTask) => void;
-  isLoading?: boolean;
+  onAdd: (task: NewTask) => void
+  isLoading?: boolean
 }
 
 export const TaskInput = ({ onAdd, isLoading = false }: TaskInputProps) => {
-  const [title, setTitle] = useState('');
-  const [error, setError] = useState('');
+  const [title, setTitle] = useState('')
+  const [error, setError] = useState('')
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const trimmedTitle = title.trim();
+    const trimmedTitle = title.trim()
 
     // Validation
     if (!trimmedTitle) {
-      setError('Task title cannot be empty');
-      return;
+      setError('Task title cannot be empty')
+      return
     }
 
     if (trimmedTitle.length > 500) {
-      setError('Task title must be 500 characters or less');
-      return;
+      setError('Task title must be 500 characters or less')
+      return
     }
 
     // Clear error and submit
-    setError('');
-    onAdd({ title: trimmedTitle });
-    setTitle('');
-  };
+    setError('')
+    onAdd({ title: trimmedTitle })
+    setTitle('')
+  }
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
@@ -40,8 +40,8 @@ export const TaskInput = ({ onAdd, isLoading = false }: TaskInputProps) => {
           type="text"
           value={title}
           onChange={(e) => {
-            setTitle(e.target.value);
-            if (error) setError('');
+            setTitle(e.target.value)
+            if (error) setError('')
           }}
           placeholder="What needs to be done?"
           className={styles.input}
@@ -66,5 +66,5 @@ export const TaskInput = ({ onAdd, isLoading = false }: TaskInputProps) => {
         </div>
       )}
     </form>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import { useEffect, useCallback } from 'react'
 import type React from 'react'
+import { useCallback, useEffect } from 'react'
 
 interface KeyboardShortcut {
   key: string
@@ -51,7 +51,7 @@ export function useKeyboardShortcuts(shortcuts: KeyboardShortcut[]) {
         shortcut.handler()
       }
     },
-    [shortcuts]
+    [shortcuts],
   )
 
   useEffect(() => {

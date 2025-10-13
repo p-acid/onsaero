@@ -3,14 +3,9 @@
  * Coordinates synchronization between chrome.storage.sync (local cache) and Supabase (source of truth)
  */
 
-import type { Task } from './types'
 import { supabase } from '../api/supabase'
-import {
-  getTasks,
-  setTasks,
-  getLastSync,
-  setLastSync,
-} from './storage'
+import { getLastSync, getTasks, setLastSync, setTasks } from './storage'
+import type { Task } from './types'
 
 /**
  * Merge tasks using server-wins conflict resolution
@@ -18,7 +13,7 @@ import {
  */
 export function mergeTasks(
   localTasks: Task[],
-  serverTasks: Task[]
+  serverTasks: Task[],
 ): { merged: Task[]; conflicts: number } {
   const merged = new Map<string, Task>()
   let conflicts = 0
@@ -60,7 +55,7 @@ export function mergeTasks(
 
   return {
     merged: Array.from(merged.values()).sort(
-      (a, b) => a.display_order - b.display_order
+      (a, b) => a.display_order - b.display_order,
     ),
     conflicts,
   }
@@ -276,14 +271,14 @@ export function setupAutoSync(intervalMinutes = 5): () => void {
         const result = await fullSync()
         if (result.success) {
           console.log(
-            `Auto-sync complete: ${result.taskCount} tasks, ${result.conflicts} conflicts`
+            `Auto-sync complete: ${result.taskCount} tasks, ${result.conflicts} conflicts`,
           )
         } else {
           console.error('Auto-sync failed:', result.error)
         }
       }
     },
-    intervalMinutes * 60 * 1000
+    intervalMinutes * 60 * 1000,
   )
 
   return () => clearInterval(intervalId)

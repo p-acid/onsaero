@@ -20,13 +20,18 @@ export default defineConfig({
       output: {
         // Manual chunk splitting for optimal bundle size
         manualChunks: (id) => {
+          // Don't chunk service worker - it needs all dependencies inline
+          if (id.includes('service-worker')) {
+            return undefined
+          }
+
           // Vendor chunks
           if (id.includes('node_modules')) {
             // Recharts - lazy loaded, separate chunk
             if (id.includes('recharts')) {
               return 'recharts'
             }
-            // React core
+            // React core (NOT in service worker)
             if (id.includes('react') || id.includes('react-dom')) {
               return 'react-vendor'
             }

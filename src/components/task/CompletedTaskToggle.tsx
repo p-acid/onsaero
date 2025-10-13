@@ -19,7 +19,9 @@ export const CompletedTaskToggle = ({
     <button
       onClick={() => onToggle(!showCompleted)}
       className={styles.toggle}
-      aria-label={showCompleted ? 'Hide completed tasks' : 'Show completed tasks'}
+      aria-label={
+        showCompleted ? 'Hide completed tasks' : 'Show completed tasks'
+      }
       aria-expanded={showCompleted}
     >
       <span className={styles.icon}>{showCompleted ? '▼' : '▶'}</span>

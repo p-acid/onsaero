@@ -1,30 +1,33 @@
-import { AllTimeMetrics } from '../components/dashboard/AllTimeMetrics';
-import { WeeklyChart } from '../components/dashboard/WeeklyChart';
-import { EmptyState } from '../components/ui/EmptyState';
-import { useWeeklyMetricsQuery, useAllTimeMetricsQuery } from '../hooks/useMetrics';
-import * as styles from './Dashboard.css';
+import { AllTimeMetrics } from '../components/dashboard/AllTimeMetrics'
+import { WeeklyChart } from '../components/dashboard/WeeklyChart'
+import { EmptyState } from '../components/ui/EmptyState'
+import {
+  useAllTimeMetricsQuery,
+  useWeeklyMetricsQuery,
+} from '../hooks/useMetrics'
+import * as styles from './Dashboard.css'
 
 export const Dashboard = () => {
   const {
     data: weeklyMetrics,
     isLoading: isWeeklyLoading,
     error: weeklyError,
-  } = useWeeklyMetricsQuery();
+  } = useWeeklyMetricsQuery()
 
   const {
     data: allTimeMetrics,
     isLoading: isAllTimeLoading,
     error: allTimeError,
-  } = useAllTimeMetricsQuery();
+  } = useAllTimeMetricsQuery()
 
-  const isLoading = isWeeklyLoading || isAllTimeLoading;
-  const hasError = weeklyError || allTimeError;
+  const isLoading = isWeeklyLoading || isAllTimeLoading
+  const hasError = weeklyError || allTimeError
 
   // Check if there's any data at all
   const hasNoData =
     !isLoading &&
     (!allTimeMetrics || allTimeMetrics.total_tasks === 0) &&
-    (!weeklyMetrics || weeklyMetrics.length === 0);
+    (!weeklyMetrics || weeklyMetrics.length === 0)
 
   if (hasError) {
     return (
@@ -44,7 +47,7 @@ export const Dashboard = () => {
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   if (hasNoData) {
@@ -72,7 +75,7 @@ export const Dashboard = () => {
           }
         />
       </div>
-    );
+    )
   }
 
   return (
@@ -85,12 +88,15 @@ export const Dashboard = () => {
       </header>
 
       <div className={styles.content}>
-        <AllTimeMetrics metrics={allTimeMetrics || null} isLoading={isAllTimeLoading} />
+        <AllTimeMetrics
+          metrics={allTimeMetrics || null}
+          isLoading={isAllTimeLoading}
+        />
 
         <div className={styles.chartSection}>
           <WeeklyChart data={weeklyMetrics || []} isLoading={isWeeklyLoading} />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

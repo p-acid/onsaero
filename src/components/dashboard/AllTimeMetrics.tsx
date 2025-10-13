@@ -1,16 +1,16 @@
-import { MetricsCard } from './MetricsCard';
-import * as styles from './AllTimeMetrics.css';
+import * as styles from './AllTimeMetrics.css'
+import { MetricsCard } from './MetricsCard'
 
 interface AllTimeMetricsData {
-  total_tasks: number;
-  completed_tasks: number;
-  active_tasks: number;
-  completion_rate: number;
+  total_tasks: number
+  completed_tasks: number
+  active_tasks: number
+  completion_rate: number
 }
 
 interface AllTimeMetricsProps {
-  metrics: AllTimeMetricsData | null;
-  isLoading?: boolean;
+  metrics: AllTimeMetricsData | null
+  isLoading?: boolean
 }
 
 export const AllTimeMetrics = ({ metrics, isLoading }: AllTimeMetricsProps) => {
@@ -22,7 +22,7 @@ export const AllTimeMetrics = ({ metrics, isLoading }: AllTimeMetricsProps) => {
           <p className={styles.loadingText}>Loading statistics...</p>
         </div>
       </div>
-    );
+    )
   }
 
   if (!metrics) {
@@ -30,10 +30,10 @@ export const AllTimeMetrics = ({ metrics, isLoading }: AllTimeMetricsProps) => {
       <div className={styles.container}>
         <p className={styles.emptyText}>No statistics available</p>
       </div>
-    );
+    )
   }
 
-  const completionRate = metrics.completion_rate || 0;
+  const completionRate = metrics.completion_rate || 0
 
   return (
     <div className={styles.container}>
@@ -133,5 +133,5 @@ export const AllTimeMetrics = ({ metrics, isLoading }: AllTimeMetricsProps) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}

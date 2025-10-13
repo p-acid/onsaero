@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
 import type React from 'react'
-import { useTaskStore } from '../stores/taskStore'
-import { syncPendingToServer } from '../lib/sync'
+import { useEffect, useState } from 'react'
 import { getTasks } from '../lib/storage'
+import { syncPendingToServer } from '../lib/sync'
+import { useTaskStore } from '../stores/taskStore'
 
 interface OfflineStatus {
   isOnline: boolean

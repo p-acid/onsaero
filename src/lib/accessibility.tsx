@@ -5,8 +5,12 @@
 /**
  * Announce message to screen readers using ARIA live region
  */
-export function announceToScreenReader(message: string, priority: 'polite' | 'assertive' = 'polite') {
-  const liveRegion = document.getElementById('aria-live-region') || createLiveRegion(priority)
+export function announceToScreenReader(
+  message: string,
+  priority: 'polite' | 'assertive' = 'polite',
+) {
+  const liveRegion =
+    document.getElementById('aria-live-region') || createLiveRegion(priority)
   liveRegion.textContent = message
 
   // Clear after announcement
@@ -38,9 +42,12 @@ function createLiveRegion(priority: 'polite' | 'assertive'): HTMLElement {
  * Focus trap for modal dialogs
  */
 export function createFocusTrap(element: HTMLElement) {
-  const focusableSelector = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  const focusableSelector =
+    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-  const focusableElements = Array.from(element.querySelectorAll<HTMLElement>(focusableSelector))
+  const focusableElements = Array.from(
+    element.querySelectorAll<HTMLElement>(focusableSelector),
+  )
   const firstFocusable = focusableElements[0]
   const lastFocusable = focusableElements[focusableElements.length - 1]
 
@@ -87,7 +94,11 @@ import type React from 'react'
 /**
  * Skip to main content link (for keyboard navigation)
  */
-export function SkipToMainContent({ targetId = 'main-content' }: { targetId?: string }): React.ReactElement {
+export function SkipToMainContent({
+  targetId = 'main-content',
+}: {
+  targetId?: string
+}): React.ReactElement {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     const target = document.getElementById(targetId)

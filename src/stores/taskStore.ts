@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import type { Task } from '../lib/types'
 import { getTasks, setTasks } from '../lib/storage'
+import type { Task } from '../lib/types'
 
 interface TaskStore {
   // State
@@ -44,7 +44,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
   updateTask: (id, updates) =>
     set((state) => ({
       tasks: state.tasks.map((task) =>
-        task.id === id ? { ...task, ...updates } : task
+        task.id === id ? { ...task, ...updates } : task,
       ),
     })),
 
@@ -64,7 +64,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
               completed: !task.completed,
               completed_at: !task.completed ? new Date().toISOString() : null,
             }
-          : task
+          : task,
       ),
     })),
 

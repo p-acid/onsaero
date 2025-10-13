@@ -110,7 +110,7 @@ export function usePreferences() {
   }
 
   const updatePreferences = async (
-    updates: Partial<Omit<UserPreferences, 'user_id'>>
+    updates: Partial<Omit<UserPreferences, 'user_id'>>,
   ) => {
     try {
       const updated = {

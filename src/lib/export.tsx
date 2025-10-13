@@ -3,7 +3,7 @@
  * Supports CSV and JSON formats
  */
 
-import type { Task, DailyMetric } from './types'
+import type { DailyMetric, Task } from './types'
 
 /**
  * Export tasks to CSV format
@@ -48,11 +48,7 @@ export function exportTasksToJSON(tasks: Task[]): string {
  * Export metrics to CSV format
  */
 export function exportMetricsToCSV(metrics: DailyMetric[]): string {
-  const headers = [
-    'Date',
-    'Tasks Created',
-    'Tasks Completed',
-  ]
+  const headers = ['Date', 'Tasks Created', 'Tasks Completed']
 
   const rows = metrics.map((metric) => [
     metric.date,
@@ -78,7 +74,7 @@ export function exportMetricsToJSON(metrics: DailyMetric[]): string {
 export function downloadFile(
   content: string,
   filename: string,
-  mimeType: string
+  mimeType: string,
 ) {
   const blob = new Blob([content], { type: mimeType })
   const url = URL.createObjectURL(blob)
@@ -115,7 +111,7 @@ export function downloadTasks(tasks: Task[], format: 'csv' | 'json' = 'csv') {
  */
 export function downloadMetrics(
   metrics: DailyMetric[],
-  format: 'csv' | 'json' = 'csv'
+  format: 'csv' | 'json' = 'csv',
 ) {
   const timestamp = new Date().toISOString().split('T')[0]
   const filename = `onsaero-metrics-${timestamp}.${format}`
@@ -135,7 +131,7 @@ export function downloadMetrics(
 export function downloadAllData(
   tasks: Task[],
   metrics: DailyMetric[],
-  format: 'json' = 'json'
+  format: 'json' = 'json',
 ) {
   const timestamp = new Date().toISOString().split('T')[0]
   const filename = `onsaero-export-${timestamp}.${format}`
@@ -194,7 +190,6 @@ export function useDataExport() {
     isExporting,
   }
 }
-
 
 /**
  * Export button component

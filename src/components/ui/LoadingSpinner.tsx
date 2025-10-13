@@ -5,7 +5,10 @@ interface LoadingSpinnerProps {
   size?: 'small' | 'medium' | 'large'
 }
 
-export function LoadingSpinner({ text = 'Loading...', size = 'medium' }: LoadingSpinnerProps) {
+export function LoadingSpinner({
+  text = 'Loading...',
+  size = 'medium',
+}: LoadingSpinnerProps) {
   return (
     <div className={spinnerContainer}>
       <div className={spinner} data-size={size} />

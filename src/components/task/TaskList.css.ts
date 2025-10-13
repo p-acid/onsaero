@@ -1,9 +1,9 @@
-import { style } from '@vanilla-extract/css';
-import theme from '../../styles/theme.css';
+import { style } from '@vanilla-extract/css'
+import theme from '../../styles/theme.css'
 
 export const container = style({
   width: '100%',
-});
+})
 
 export const list = style({
   listStyle: 'none',
@@ -12,8 +12,8 @@ export const list = style({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.space.md,
-});
+})
 
 export const listItem = style({
   width: '100%',
-});
+})

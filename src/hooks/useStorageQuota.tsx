@@ -57,7 +57,6 @@ export function useStorageQuota() {
   }
 }
 
-
 /**
  * Component to display storage quota warning
  */
@@ -75,7 +74,7 @@ export function StorageQuotaWarning({
   const handleCleanup = async () => {
     if (
       confirm(
-        'This will remove old completed tasks from local storage to free up space. Tasks will still be saved in the cloud. Continue?'
+        'This will remove old completed tasks from local storage to free up space. Tasks will still be saved in the cloud. Continue?',
       )
     ) {
       chrome.runtime.sendMessage({ type: 'TRIGGER_CLEANUP' })
@@ -92,10 +91,18 @@ export function StorageQuotaWarning({
         marginBottom: '16px',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <div>
           <strong>Storage Nearly Full</strong>
-          <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#92400E' }}>
+          <p
+            style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#92400E' }}
+          >
             Using {bytes.toLocaleString()} / {limit.toLocaleString()} bytes (
             {usagePercent}%)
           </p>

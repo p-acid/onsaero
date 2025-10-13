@@ -10,18 +10,19 @@ export const container = style({
 })
 
 export const header = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
   padding: theme.space['2xl'],
   borderBottom: `1px solid ${theme.color.border}`,
   backgroundColor: theme.color.surface,
+})
 
-  selectors: {
-    '& h1': {
-      fontSize: theme.fontSize['2xl'],
-      fontWeight: theme.fontWeight.semibold,
-      color: theme.color.text,
-      margin: 0,
-    },
-  },
+export const errorContainer = style({
+  maxWidth: '800px',
+  width: '100%',
+  margin: '0 auto',
+  padding: `0 ${theme.space['2xl']}`,
 })
 
 export const main = style({
@@ -37,12 +38,4 @@ export const footer = style({
   borderTop: `1px solid ${theme.color.border}`,
   backgroundColor: theme.color.surface,
   textAlign: 'center',
-
-  selectors: {
-    '& p': {
-      fontSize: theme.fontSize.sm,
-      color: theme.color.textSecondary,
-      margin: 0,
-    },
-  },
 })

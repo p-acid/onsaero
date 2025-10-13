@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useTaskStore } from '../stores/taskStore'
-import { popupContainer, popupHeader, popupTitle, quickStats, statItem, statLabel, statValue, actionButton, actionButtons } from './Popup.css'
+import {
+  actionButton,
+  actionButtons,
+  popupContainer,
+  popupHeader,
+  popupTitle,
+  quickStats,
+  statItem,
+  statLabel,
+  statValue,
+} from './Popup.css'
 
 function Popup() {
-  const tasks = useTaskStore(state => state.tasks)
+  const tasks = useTaskStore((state) => state.tasks)
   const [storageUsage, setStorageUsage] = useState(0)
 
   useEffect(() => {
@@ -16,14 +26,14 @@ function Popup() {
     })
 
     // Check storage usage
-    chrome.storage.sync.getBytesInUse().then(bytes => {
+    chrome.storage.sync.getBytesInUse().then((bytes) => {
       const limit = chrome.storage.sync.QUOTA_BYTES
       setStorageUsage(Math.round((bytes / limit) * 100))
     })
   }, [])
 
-  const activeTasks = tasks.filter(t => !t.completed)
-  const completedTasks = tasks.filter(t => t.completed)
+  const activeTasks = tasks.filter((t) => !t.completed)
+  const completedTasks = tasks.filter((t) => t.completed)
 
   const handleOpenNewTab = () => {
     chrome.tabs.create({ url: 'chrome://newtab' })
@@ -36,7 +46,11 @@ function Popup() {
   }
 
   const handleCleanup = () => {
-    if (confirm('This will remove old completed tasks from local storage. Continue?')) {
+    if (
+      confirm(
+        'This will remove old completed tasks from local storage. Continue?',
+      )
+    ) {
       chrome.runtime.sendMessage({ type: 'TRIGGER_CLEANUP' })
       window.close()
     }

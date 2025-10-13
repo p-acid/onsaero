@@ -1,4 +1,4 @@
-import type { Task, ChromeStorageData, UserPreferences } from './types'
+import type { ChromeStorageData, Task, UserPreferences } from './types'
 
 // Storage keys
 const STORAGE_KEYS = {
@@ -35,7 +35,7 @@ export const getFromStorage = async <T>(key: string): Promise<T | null> => {
  */
 export const setInStorage = async <T>(
   key: string,
-  value: T
+  value: T,
 ): Promise<boolean> => {
   if (!chrome?.storage?.sync) {
     console.warn('Chrome storage API not available')
@@ -143,7 +143,7 @@ export const getPreferences = async (): Promise<UserPreferences | null> => {
  * Set user preferences in storage
  */
 export const setPreferences = async (
-  preferences: UserPreferences
+  preferences: UserPreferences,
 ): Promise<boolean> => {
   return setInStorage(STORAGE_KEYS.PREFERENCES, preferences)
 }
@@ -180,7 +180,7 @@ export const setUserId = async (userId: string): Promise<boolean> => {
  * Sync all storage data (tasks + preferences + metadata)
  */
 export const syncStorageData = async (
-  data: Partial<ChromeStorageData>
+  data: Partial<ChromeStorageData>,
 ): Promise<boolean> => {
   if (!chrome?.storage?.sync) {
     console.warn('Chrome storage API not available')
@@ -252,7 +252,7 @@ export const cleanupOldTasks = async (daysToKeep = 30): Promise<number> => {
  */
 export type StorageChangeCallback = (
   changes: chrome.storage.StorageChange,
-  key: string
+  key: string,
 ) => void
 
 /**
@@ -260,7 +260,7 @@ export type StorageChangeCallback = (
  * Returns a cleanup function to remove the listener
  */
 export const setupStorageListener = (
-  callback: StorageChangeCallback
+  callback: StorageChangeCallback,
 ): (() => void) => {
   if (!chrome?.storage?.onChanged) {
     console.warn('Chrome storage API not available')
@@ -269,7 +269,7 @@ export const setupStorageListener = (
 
   const listener = (
     changes: { [key: string]: chrome.storage.StorageChange },
-    areaName: string
+    areaName: string,
   ) => {
     // Only respond to sync storage changes
     if (areaName !== 'sync') return

@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react'
 import type { RealtimeChannel } from '@supabase/supabase-js'
+import { useEffect, useRef } from 'react'
 import { supabase } from '../api/supabase'
-import { useTaskStore } from '../stores/taskStore'
-import { setTasks, getTasks } from '../lib/storage'
+import { getTasks, setTasks } from '../lib/storage'
 import type { Task } from '../lib/types'
+import { useTaskStore } from '../stores/taskStore'
 
 /**
  * React hook to setup Supabase Realtime subscriptions for cross-device sync
@@ -49,7 +49,10 @@ export function useRealtimeSync() {
                 .order('created_at', { ascending: false })
 
               if (error) {
-                console.error('Error fetching tasks after realtime update:', error)
+                console.error(
+                  'Error fetching tasks after realtime update:',
+                  error,
+                )
                 return
               }
 
@@ -57,10 +60,7 @@ export function useRealtimeSync() {
               const localTasks = await getTasks()
 
               // Merge with local tasks (server wins on conflict)
-              const merged = mergeTasksWithServer(
-                localTasks,
-                serverTasks || []
-              )
+              const merged = mergeTasksWithServer(localTasks, serverTasks || [])
 
               // Update local storage
               await setTasks(merged)
@@ -70,10 +70,8 @@ export function useRealtimeSync() {
                 setTasksInStore(merged)
               }
 
-              console.log(
-                `Synced ${merged.length} tasks from realtime update`
-              )
-            }
+              console.log(`Synced ${merged.length} tasks from realtime update`)
+            },
           )
           .subscribe((status) => {
             if (status === 'SUBSCRIBED') {
@@ -127,7 +125,7 @@ function mergeTasksWithServer(localTasks: Task[], serverTasks: Task[]): Task[] {
   }
 
   return Array.from(merged.values()).sort(
-    (a, b) => a.display_order - b.display_order
+    (a, b) => a.display_order - b.display_order,
   )
 }
 

@@ -1,5 +1,5 @@
-import { style, keyframes } from '@vanilla-extract/css';
-import theme from '../styles/theme.css';
+import { keyframes, style } from '@vanilla-extract/css'
+import theme from '../styles/theme.css'
 
 export const container = style({
   minHeight: '100vh',
@@ -7,19 +7,19 @@ export const container = style({
   padding: theme.space.xl,
   display: 'flex',
   justifyContent: 'center',
-});
+})
 
 export const content = style({
   width: '100%',
   maxWidth: '800px',
   margin: '0 auto',
-});
+})
 
 export const header = style({
   textAlign: 'center',
   marginBottom: theme.space['3xl'],
   paddingTop: theme.space['2xl'],
-});
+})
 
 export const headerContent = style({
   display: 'flex',
@@ -34,7 +34,7 @@ export const headerContent = style({
       alignItems: 'flex-start',
     },
   },
-});
+})
 
 export const viewToggle = style({
   display: 'flex',
@@ -43,7 +43,7 @@ export const viewToggle = style({
   backgroundColor: theme.colors.surface,
   borderRadius: theme.radius.lg,
   border: `1px solid ${theme.colors.border}`,
-});
+})
 
 export const viewToggleButton = style({
   display: 'flex',
@@ -69,14 +69,14 @@ export const viewToggleButton = style({
     outline: `2px solid ${theme.colors.primary}`,
     outlineOffset: '2px',
   },
-});
+})
 
 export const viewToggleButtonActive = style({
   color: theme.colors.primary,
   backgroundColor: theme.colors.background,
   fontWeight: theme.fontWeight.semibold,
   boxShadow: theme.shadow.sm,
-});
+})
 
 export const title = style({
   margin: 0,
@@ -85,32 +85,32 @@ export const title = style({
   fontWeight: theme.fontWeight.bold,
   color: theme.colors.text,
   letterSpacing: '-0.025em',
-});
+})
 
 export const subtitle = style({
   margin: 0,
   fontSize: theme.fontSize.lg,
   fontWeight: theme.fontWeight.normal,
   color: theme.colors.textSecondary,
-});
+})
 
 export const main = style({
   width: '100%',
-});
+})
 
 export const taskSection = style({
   display: 'flex',
   flexDirection: 'column',
   gap: theme.space['2xl'],
-});
+})
 
 export const activeTasks = style({
   width: '100%',
-});
+})
 
 export const completedTasks = style({
   width: '100%',
-});
+})
 
 export const sectionTitle = style({
   margin: 0,
@@ -118,13 +118,13 @@ export const sectionTitle = style({
   fontSize: theme.fontSize.lg,
   fontWeight: theme.fontWeight.semibold,
   color: theme.colors.text,
-});
+})
 
 // Loading state
 const spin = keyframes({
   '0%': { transform: 'rotate(0deg)' },
   '100%': { transform: 'rotate(360deg)' },
-});
+})
 
 export const loadingContainer = style({
   display: 'flex',
@@ -133,7 +133,7 @@ export const loadingContainer = style({
   justifyContent: 'center',
   padding: theme.space['4xl'],
   gap: theme.space.xl,
-});
+})
 
 export const spinner = style({
   width: '48px',
@@ -142,13 +142,13 @@ export const spinner = style({
   borderTop: `4px solid ${theme.colors.primary}`,
   borderRadius: '50%',
   animation: `${spin} 1s linear infinite`,
-});
+})
 
 export const loadingText = style({
   margin: 0,
   fontSize: theme.fontSize.base,
   color: theme.colors.textSecondary,
-});
+})
 
 // Error state
 export const errorContainer = style({
@@ -159,21 +159,21 @@ export const errorContainer = style({
   padding: theme.space['4xl'],
   gap: theme.space.xl,
   textAlign: 'center',
-});
+})
 
 export const errorTitle = style({
   margin: 0,
   fontSize: theme.fontSize['2xl'],
   fontWeight: theme.fontWeight.semibold,
   color: theme.colors.error,
-});
+})
 
 export const errorMessage = style({
   margin: 0,
   fontSize: theme.fontSize.base,
   color: theme.colors.textSecondary,
   maxWidth: '400px',
-});
+})
 
 export const retryButton = style({
   padding: `${theme.space.md} ${theme.space.xl}`,
@@ -200,7 +200,7 @@ export const retryButton = style({
     outline: `2px solid ${theme.colors.primary}`,
     outlineOffset: '2px',
   },
-});
+})
 
 // Toast notifications
 const slideIn = keyframes({
@@ -212,7 +212,7 @@ const slideIn = keyframes({
     transform: 'translateX(0)',
     opacity: 1,
   },
-});
+})
 
 export const toast = style({
   position: 'fixed',
@@ -227,4 +227,4 @@ export const toast = style({
   fontWeight: theme.fontWeight.medium,
   animation: `${slideIn} 0.3s ease-out`,
   zIndex: theme.zIndex.popover,
-});
+})

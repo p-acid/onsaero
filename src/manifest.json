@@ -3,7 +3,19 @@
   "name": "Onsaero Tasks",
   "version": "0.1.0",
   "description": "Task management and productivity visualization for your new tab",
-  "permissions": ["storage"],
+  "permissions": [
+    "storage",
+    "identity",
+    "tabs",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://*.supabase.co/*"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.ts",
+    "type": "module"
+  },
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
@@ -20,6 +32,6 @@
     "128": "icons/icon128.png"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://*.supabase.co"
   }
 }

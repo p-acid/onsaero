@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query'
 import {
-  getWeeklyMetrics,
   getAllTimeMetrics,
   getMonthlyMetrics,
-} from '../api/metrics';
+  getWeeklyMetrics,
+} from '../api/metrics'
 
 /**
  * Query key factory for metrics
@@ -13,7 +13,7 @@ export const metricsKeys = {
   weekly: () => [...metricsKeys.all, 'weekly'] as const,
   monthly: () => [...metricsKeys.all, 'monthly'] as const,
   allTime: () => [...metricsKeys.all, 'allTime'] as const,
-};
+}
 
 /**
  * Hook to fetch weekly metrics (last 7 days)
@@ -24,8 +24,8 @@ export const useWeeklyMetricsQuery = () => {
     queryFn: getWeeklyMetrics,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: 2,
-  });
-};
+  })
+}
 
 /**
  * Hook to fetch all-time metrics
@@ -36,8 +36,8 @@ export const useAllTimeMetricsQuery = () => {
     queryFn: getAllTimeMetrics,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: 2,
-  });
-};
+  })
+}
 
 /**
  * Hook to fetch monthly metrics (last 30 days)
@@ -48,5 +48,5 @@ export const useMonthlyMetricsQuery = () => {
     queryFn: getMonthlyMetrics,
     staleTime: 1000 * 60 * 5, // 5 minutes
     retry: 2,
-  });
-};
+  })
+}

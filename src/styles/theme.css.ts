@@ -33,26 +33,26 @@ export const colors = {
 
 // Spacing scale (rem units)
 export const space = {
-  xs: '0.25rem',    // 4px
-  sm: '0.5rem',     // 8px
-  md: '0.75rem',    // 12px
-  lg: '1rem',       // 16px
-  xl: '1.5rem',     // 24px
-  '2xl': '2rem',    // 32px
-  '3xl': '3rem',    // 48px
-  '4xl': '4rem',    // 64px
+  xs: '0.25rem', // 4px
+  sm: '0.5rem', // 8px
+  md: '0.75rem', // 12px
+  lg: '1rem', // 16px
+  xl: '1.5rem', // 24px
+  '2xl': '2rem', // 32px
+  '3xl': '3rem', // 48px
+  '4xl': '4rem', // 64px
 }
 
 // Typography
 export const fontSize = {
-  xs: '0.75rem',    // 12px
-  sm: '0.875rem',   // 14px
-  base: '1rem',     // 16px
-  lg: '1.125rem',   // 18px
-  xl: '1.25rem',    // 20px
-  '2xl': '1.5rem',  // 24px
+  xs: '0.75rem', // 12px
+  sm: '0.875rem', // 14px
+  base: '1rem', // 16px
+  lg: '1.125rem', // 18px
+  xl: '1.25rem', // 20px
+  '2xl': '1.5rem', // 24px
   '3xl': '1.875rem', // 30px
-  '4xl': '2.25rem',  // 36px
+  '4xl': '2.25rem', // 36px
 }
 
 export const fontWeight = {
@@ -71,10 +71,10 @@ export const lineHeight = {
 // Border radius
 export const radius = {
   none: '0',
-  sm: '0.25rem',   // 4px
-  md: '0.375rem',  // 6px
-  lg: '0.5rem',    // 8px
-  xl: '0.75rem',   // 12px
+  sm: '0.25rem', // 4px
+  md: '0.375rem', // 6px
+  lg: '0.5rem', // 8px
+  xl: '0.75rem', // 12px
   full: '9999px',
 }
 

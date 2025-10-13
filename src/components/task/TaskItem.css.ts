@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css';
-import theme from '../../styles/theme.css';
+import { style } from '@vanilla-extract/css'
+import theme from '../../styles/theme.css'
 
 export const taskItem = style({
   display: 'flex',
@@ -15,12 +15,12 @@ export const taskItem = style({
     backgroundColor: theme.colors.taskHover,
     boxShadow: theme.shadow.sm,
   },
-});
+})
 
 export const completed = style({
   backgroundColor: theme.colors.taskCompleted,
   opacity: 0.7,
-});
+})
 
 export const checkboxLabel = style({
   display: 'flex',
@@ -28,7 +28,7 @@ export const checkboxLabel = style({
   cursor: 'pointer',
   position: 'relative',
   flexShrink: 0,
-});
+})
 
 export const checkbox = style({
   position: 'absolute',
@@ -36,7 +36,7 @@ export const checkbox = style({
   cursor: 'pointer',
   width: '20px',
   height: '20px',
-});
+})
 
 export const customCheckbox = style({
   width: '20px',
@@ -75,7 +75,7 @@ export const customCheckbox = style({
       borderColor: theme.colors.primary,
     },
   },
-});
+})
 
 export const title = style({
   flex: 1,
@@ -92,7 +92,7 @@ export const title = style({
       color: theme.colors.textSecondary,
     },
   },
-});
+})
 
 export const deleteButton = style({
   display: 'flex',
@@ -118,4 +118,4 @@ export const deleteButton = style({
     outline: `2px solid ${theme.colors.error}`,
     outlineOffset: '2px',
   },
-});
+})

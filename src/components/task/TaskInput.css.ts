@@ -1,16 +1,16 @@
-import { style } from '@vanilla-extract/css';
-import theme from '../../styles/theme.css';
+import { style } from '@vanilla-extract/css'
+import theme from '../../styles/theme.css'
 
 export const form = style({
   width: '100%',
   marginBottom: theme.space.xl,
-});
+})
 
 export const inputWrapper = style({
   display: 'flex',
   gap: theme.space.md,
   alignItems: 'stretch',
-});
+})
 
 export const input = style({
   flex: 1,
@@ -39,7 +39,7 @@ export const input = style({
     color: theme.colors.textSecondary,
     cursor: 'not-allowed',
   },
-});
+})
 
 export const submitButton = style({
   padding: `${theme.space.md} ${theme.space.xl}`,
@@ -75,7 +75,7 @@ export const submitButton = style({
       outlineOffset: '2px',
     },
   },
-});
+})
 
 export const error = style({
   marginTop: theme.space.sm,
@@ -85,4 +85,4 @@ export const error = style({
   backgroundColor: theme.colors.errorLight,
   border: `1px solid ${theme.colors.error}`,
   borderRadius: theme.radius.md,
-});
+})

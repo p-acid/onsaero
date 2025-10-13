@@ -1,5 +1,10 @@
 import { Component, type ReactNode } from 'react'
-import { errorContainer, errorTitle, errorMessage, errorButton } from './ErrorBoundary.css'
+import {
+  errorButton,
+  errorContainer,
+  errorMessage,
+  errorTitle,
+} from './ErrorBoundary.css'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -44,7 +49,11 @@ export class ErrorBoundary extends Component<
           <p className={errorMessage}>
             {this.state.error?.message || 'An unexpected error occurred'}
           </p>
-          <button type="button" className={errorButton} onClick={this.handleReset}>
+          <button
+            type="button"
+            className={errorButton}
+            onClick={this.handleReset}
+          >
             Try again
           </button>
         </div>

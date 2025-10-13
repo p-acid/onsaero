@@ -1,6 +1,6 @@
-import { supabase } from './supabase'
-import type { Task, NewTask, UpdateTask } from '../lib/types'
 import type { Database } from '../lib/database.types'
+import type { NewTask, Task, UpdateTask } from '../lib/types'
+import { supabase } from './supabase'
 
 /**
  * Fetch all tasks for the current user
@@ -55,7 +55,10 @@ export const createTask = async (newTask: NewTask): Promise<Task> => {
 /**
  * Update an existing task
  */
-export const updateTask = async ({ id, ...updates }: UpdateTask): Promise<Task> => {
+export const updateTask = async ({
+  id,
+  ...updates
+}: UpdateTask): Promise<Task> => {
   const updateData: Database['public']['Tables']['tasks']['Update'] = updates
 
   const { data, error } = await supabase
@@ -75,7 +78,10 @@ export const updateTask = async ({ id, ...updates }: UpdateTask): Promise<Task> 
 /**
  * Toggle task completion status
  */
-export const toggleTaskCompletion = async (id: string, completed: boolean): Promise<Task> => {
+export const toggleTaskCompletion = async (
+  id: string,
+  completed: boolean,
+): Promise<Task> => {
   return updateTask({
     id,
     completed,

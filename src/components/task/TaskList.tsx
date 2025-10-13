@@ -1,21 +1,26 @@
-import type { Task } from '../../lib/types';
-import { TaskItem } from './TaskItem';
-import * as styles from './TaskList.css';
+import type { Task } from '../../lib/types'
+import { TaskItem } from './TaskItem'
+import * as styles from './TaskList.css'
 
 interface TaskListProps {
-  tasks: Task[];
-  onToggle?: (id: string) => void;
-  onDelete?: (id: string) => void;
-  showCompleted?: boolean;
+  tasks: Task[]
+  onToggle?: (id: string) => void
+  onDelete?: (id: string) => void
+  showCompleted?: boolean
 }
 
-export const TaskList = ({ tasks, onToggle, onDelete, showCompleted = true }: TaskListProps) => {
+export const TaskList = ({
+  tasks,
+  onToggle,
+  onDelete,
+  showCompleted = true,
+}: TaskListProps) => {
   const filteredTasks = showCompleted
     ? tasks
-    : tasks.filter((task) => !task.completed);
+    : tasks.filter((task) => !task.completed)
 
   if (filteredTasks.length === 0) {
-    return null;
+    return null
   }
 
   return (
@@ -28,5 +33,5 @@ export const TaskList = ({ tasks, onToggle, onDelete, showCompleted = true }: Ta
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}

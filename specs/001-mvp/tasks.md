@@ -144,21 +144,21 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T066 [P] Create Chrome extension background service worker in src/background/service-worker.ts
-- [ ] T067 [P] Add extension popup UI in src/popup.html and src/pages/Popup.tsx (optional)
-- [ ] T068 [P] Create extension icons in public/icons/ (16px, 48px, 128px)
-- [ ] T069 [P] Implement hybrid sync strategy between chrome.storage.sync and Supabase
-- [ ] T070 [P] Add storage quota monitoring and cleanup for old completed tasks
-- [ ] T071 [P] Setup Supabase Realtime subscriptions for cross-device sync
-- [ ] T072 [P] Add user preferences management for theme and default view
-- [ ] T073 [P] Implement offline support with sync queue for pending operations
-- [ ] T074 [P] Add keyboard shortcuts for quick task addition (Ctrl+Enter, etc.)
-- [ ] T075 [P] Optimize bundle size with code splitting for dashboard components
-- [ ] T076 [P] Add accessibility features (ARIA labels, keyboard navigation)
-- [ ] T077 [P] Performance optimization: virtual scrolling for large task lists
-- [ ] T078 [P] Add data export functionality (CSV, JSON) from dashboard
-- [ ] T079 Code cleanup and refactoring across all components
-- [ ] T080 Run quickstart.md validation and setup verification
+- [X] T066 [P] Create Chrome extension background service worker in src/background/service-worker.ts
+- [X] T067 [P] Add extension popup UI in src/popup.html and src/pages/Popup.tsx (optional)
+- [X] T068 [P] Create extension icons in public/icons/ (16px, 48px, 128px)
+- [X] T069 [P] Implement hybrid sync strategy between chrome.storage.sync and Supabase
+- [X] T070 [P] Add storage quota monitoring and cleanup for old completed tasks
+- [X] T071 [P] Setup Supabase Realtime subscriptions for cross-device sync
+- [X] T072 [P] Add user preferences management for theme and default view
+- [X] T073 [P] Implement offline support with sync queue for pending operations
+- [X] T074 [P] Add keyboard shortcuts for quick task addition (Ctrl+Enter, etc.)
+- [X] T075 [P] Optimize bundle size with code splitting for dashboard components
+- [X] T076 [P] Add accessibility features (ARIA labels, keyboard navigation)
+- [X] T077 [P] Performance optimization: virtual scrolling for large task lists
+- [X] T078 [P] Add data export functionality (CSV, JSON) from dashboard
+- [X] T079 Code cleanup and refactoring across all components
+- [X] T080 Run quickstart.md validation and setup verification
 
 ---
 

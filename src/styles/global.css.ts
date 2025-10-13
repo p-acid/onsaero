@@ -14,7 +14,8 @@ globalStyle('html, body', {
 })
 
 globalStyle('body', {
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  fontFamily:
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   fontSize: theme.fontSize.base,
   fontWeight: theme.fontWeight.normal,
   lineHeight: theme.lineHeight.normal,

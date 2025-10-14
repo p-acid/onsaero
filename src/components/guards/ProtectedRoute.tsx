@@ -7,6 +7,7 @@
  * @module components/guards/ProtectedRoute
  */
 
+import { useEffect } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuthGuard } from '../../hooks/useAuthGuard'
 import type { ProtectedRouteProps } from '../../lib/types'
@@ -21,6 +22,7 @@ import { LoadingSpinner } from '../ui/LoadingSpinner'
  * 2. Checks session expiration and redirects with appropriate reason
  * 3. Redirects to login if not authenticated (preserves destination URL)
  * 4. Renders children/<Outlet> if authenticated and session valid
+ * 5. Prevents browser history cache to ensure auth checks on back/forward
  *
  * @param {ProtectedRouteProps} props - Component props
  * @returns {JSX.Element} Protected route element
@@ -47,6 +49,35 @@ export function ProtectedRoute({
   const { isAuthenticated, isLoading, redirectPath } = useAuthGuard()
   const session = useAuthStore((state) => state.session)
   const location = useLocation()
+
+  // Prevent browser history cache for protected routes (T036)
+  // This ensures auth checks run even when navigating via back/forward buttons
+  useEffect(() => {
+    if (requireAuth) {
+      // Add cache control meta tags dynamically
+      const metaNoCache = document.createElement('meta')
+      metaNoCache.httpEquiv = 'Cache-Control'
+      metaNoCache.content = 'no-store, no-cache, must-revalidate'
+      document.head.appendChild(metaNoCache)
+
+      const metaPragma = document.createElement('meta')
+      metaPragma.httpEquiv = 'Pragma'
+      metaPragma.content = 'no-cache'
+      document.head.appendChild(metaPragma)
+
+      const metaExpires = document.createElement('meta')
+      metaExpires.httpEquiv = 'Expires'
+      metaExpires.content = '0'
+      document.head.appendChild(metaExpires)
+
+      // Cleanup on unmount
+      return () => {
+        document.head.removeChild(metaNoCache)
+        document.head.removeChild(metaPragma)
+        document.head.removeChild(metaExpires)
+      }
+    }
+  }, [requireAuth])
 
   // If auth check not required, render children immediately
   if (!requireAuth) {

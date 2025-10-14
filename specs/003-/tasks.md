@@ -111,12 +111,12 @@
 
 ### Implementation for User Story 4
 
-- [ ] T029 [P] [US4] Create Landing page component in `/src/pages/Landing.tsx` with welcome message, link to tasks (if authenticated) or login (if not)
-- [ ] T030 [P] [US4] Create Login page component in `/src/pages/Login.tsx` with Google OAuth button (reuse existing `LoginButton` component), session expiration message display based on `location.state.reason`, post-login redirect using `location.state.from`
-- [ ] T031 [US4] Add public route configuration in `/src/lib/router.ts` for path `/` with `<Landing />` element (no `<ProtectedRoute>` wrapper)
-- [ ] T032 [US4] Add public route configuration in `/src/lib/router.ts` for path `/login` with `<Login />` element (no `<ProtectedRoute>` wrapper)
-- [ ] T033 [US4] Update Landing page to conditionally render authenticated navigation context (user email, link to tasks) when `useAuthStore().isAuthenticated` is true
-- [ ] T034 [US4] Verify default route behavior: add catch-all route `path: '*'` that redirects to `/tasks` (protected) so unknown routes trigger auth check
+- [x] T029 [P] [US4] Create Landing page component in `/src/pages/Landing.tsx` with welcome message, link to tasks (if authenticated) or login (if not)
+- [x] T030 [P] [US4] Create Login page component in `/src/pages/Login.tsx` with Google OAuth button (reuse existing `LoginButton` component), session expiration message display based on `location.state.reason`, post-login redirect using `location.state.from`
+- [x] T031 [US4] Add public route configuration in `/src/lib/router.tsx` for path `/` with `<Landing />` element (no `<ProtectedRoute>` wrapper)
+- [x] T032 [US4] Add public route configuration in `/src/lib/router.tsx` for path `/login` with `<Login />` element (no `<ProtectedRoute>` wrapper)
+- [x] T033 [US4] Update Landing page to conditionally render authenticated navigation context (user email, link to tasks) when `useAuthStore().isAuthenticated` is true
+- [x] T034 [US4] Verify default route behavior: add catch-all route `path: '*'` that redirects to `/tasks` (protected) so unknown routes trigger auth check
 
 **Checkpoint**: All user stories are now complete. Public pages accessible without auth, protected pages require auth, session expiration handled gracefully, cross-tab sync working.
 
@@ -126,12 +126,12 @@
 
 **Purpose**: Improvements that affect multiple user stories and production readiness
 
-- [ ] T035 [P] Add loading skeleton variant to `/src/components/ui/LoadingSpinner.tsx` for better perceived performance during auth checks (optional enhancement per research.md)
-- [ ] T036 [P] Add browser history cache prevention headers via route configuration - set `Cache-Control: no-store, no-cache, must-revalidate` for protected routes (can be done via meta tags or in ProtectedRoute component)
-- [ ] T037 Run linter and formatter: `pnpm run lint:fix && pnpm run format`
-- [ ] T038 Build and verify bundle size: `pnpm run build` and check that authentication gate adds <20KB to dist/ bundle
-- [ ] T039 Manual testing checklist from `/specs/003-/quickstart.md` Phase 6.2: test all acceptance scenarios from spec.md
-- [ ] T040 [P] Update `CLAUDE.md` documentation if any new patterns or gotchas discovered during implementation
+- [x] T035 [P] Add loading skeleton variant to `/src/components/ui/LoadingSpinner.tsx` for better perceived performance during auth checks (optional enhancement per research.md)
+- [x] T036 [P] Add browser history cache prevention headers via route configuration - set `Cache-Control: no-store, no-cache, must-revalidate` for protected routes (can be done via meta tags or in ProtectedRoute component)
+- [x] T037 Run linter and formatter: `pnpm run lint:fix && pnpm run format`
+- [x] T038 Build and verify bundle size: `pnpm run build` and check that authentication gate adds <20KB to dist/ bundle
+- [x] T039 Manual testing checklist from `/specs/003-/quickstart.md` Phase 6.2: test all acceptance scenarios from spec.md
+- [x] T040 [P] Update `CLAUDE.md` documentation if any new patterns or gotchas discovered during implementation
 
 ---
 

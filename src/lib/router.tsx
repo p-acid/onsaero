@@ -10,6 +10,7 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import { ProtectedRoute } from '../components/guards/ProtectedRoute'
 import { Dashboard } from '../pages/Dashboard'
+import { Landing } from '../pages/Landing'
 import { Login } from '../pages/Login'
 import { NewTab } from '../pages/NewTab'
 import { useAuthStore } from '../stores/authStore'
@@ -49,6 +50,7 @@ async function protectedRouteLoader() {
  * Router instance with protected and public route configuration
  *
  * Route structure:
+ * - / (public) - Landing page with welcome message
  * - /login (public) - Login page with OAuth authentication
  * - /tasks (protected) - Main task management page
  * - /dashboard (protected) - Dashboard page
@@ -61,11 +63,16 @@ async function protectedRouteLoader() {
  *
  * Public routes:
  * - Accessible without authentication
- * - Redirect to original destination after login
+ * - Show authenticated context when user is logged in
  *
  * @constant {Router} router - React Router instance
  */
 export const router = createBrowserRouter([
+  {
+    // Public route: Landing page
+    path: '/',
+    element: <Landing />,
+  },
   {
     // Public route: Login page
     path: '/login',

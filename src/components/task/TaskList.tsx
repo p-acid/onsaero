@@ -25,7 +25,7 @@ export const TaskList = ({
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list} role="list">
+      <ul className={styles.list}>
         {filteredTasks.map((task) => (
           <li key={task.id} className={styles.listItem}>
             <TaskItem task={task} onToggle={onToggle} onDelete={onDelete} />

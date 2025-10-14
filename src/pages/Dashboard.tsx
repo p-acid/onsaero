@@ -40,6 +40,7 @@ export const Dashboard = () => {
               : 'An unknown error occurred'}
           </p>
           <button
+            type="button"
             onClick={() => window.location.reload()}
             className={styles.retryButton}
           >

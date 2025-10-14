@@ -26,7 +26,9 @@ export const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
           checked={task.completed}
           onChange={handleToggle}
           className={styles.checkbox}
-          aria-label={`Mark "${task.title}" as ${task.completed ? 'incomplete' : 'complete'}`}
+          aria-label={`Mark "${task.title}" as ${
+            task.completed ? 'incomplete' : 'complete'
+          }`}
         />
         <span className={styles.customCheckbox} />
       </label>
@@ -35,6 +37,7 @@ export const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
 
       {onDelete && (
         <button
+          type="button"
           onClick={handleDelete}
           className={styles.deleteButton}
           aria-label={`Delete task "${task.title}"`}

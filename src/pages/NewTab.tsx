@@ -1,82 +1,82 @@
-import { lazy, Suspense, useState } from 'react'
-import { NewTabLayout } from '../components/layout/NewTabLayout'
-import { CompletedTaskToggle } from '../components/task/CompletedTaskToggle'
-import { TaskInput } from '../components/task/TaskInput'
-import { TaskList } from '../components/task/TaskList'
-import { EmptyState } from '../components/ui/EmptyState'
+import { lazy, Suspense, useState } from "react";
+import { NewTabLayout } from "../components/layout/NewTabLayout";
+import { CompletedTaskToggle } from "../components/task/CompletedTaskToggle";
+import { TaskInput } from "../components/task/TaskInput";
+import { TaskList } from "../components/task/TaskList";
+import { EmptyState } from "../components/ui/EmptyState";
 import {
   useAddTaskMutation,
   useDeleteTaskMutation,
   useTasksQuery,
   useToggleTaskMutation,
-} from '../hooks/useTaskQuery'
-import type { NewTask } from '../lib/types'
-import * as styles from './NewTab.css'
+} from "../hooks/useTaskQuery";
+import type { NewTask } from "../lib/types";
+import * as styles from "./NewTab.css";
 
 // Lazy load Dashboard component
 const Dashboard = lazy(() =>
-  import('./Dashboard').then((module) => ({ default: module.Dashboard })),
-)
+  import("./Dashboard").then((module) => ({ default: module.Dashboard }))
+);
 
-type ViewMode = 'tasks' | 'dashboard'
+type ViewMode = "tasks" | "dashboard";
 
 export const NewTab = () => {
   // State for showing/hiding completed tasks
-  const [showCompleted, setShowCompleted] = useState(false)
+  const [showCompleted, setShowCompleted] = useState(false);
   // State for view mode (tasks list or dashboard)
-  const [viewMode, setViewMode] = useState<ViewMode>('tasks')
+  const [viewMode, setViewMode] = useState<ViewMode>("tasks");
 
   // Fetch tasks from Supabase
-  const { data: tasks = [], isLoading, error } = useTasksQuery()
+  const { data: tasks = [], isLoading, error } = useTasksQuery();
 
   // Mutations
-  const addTaskMutation = useAddTaskMutation()
-  const toggleTaskMutation = useToggleTaskMutation()
-  const deleteTaskMutation = useDeleteTaskMutation()
+  const addTaskMutation = useAddTaskMutation();
+  const toggleTaskMutation = useToggleTaskMutation();
+  const deleteTaskMutation = useDeleteTaskMutation();
 
   // Handler for adding a new task
   const handleAddTask = async (newTask: NewTask) => {
     try {
-      await addTaskMutation.mutateAsync(newTask)
+      await addTaskMutation.mutateAsync(newTask);
     } catch (error) {
-      console.error('Failed to add task:', error)
+      console.error("Failed to add task:", error);
       // Error is automatically handled by TanStack Query's onError
     }
-  }
+  };
 
   // Handler for toggling task completion
   const handleToggleTask = async (taskId: string) => {
-    const task = tasks.find((t) => t.id === taskId)
-    if (!task) return
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
 
     try {
       await toggleTaskMutation.mutateAsync({
         id: taskId,
         completed: !task.completed,
-      })
+      });
     } catch (error) {
-      console.error('Failed to toggle task:', error)
+      console.error("Failed to toggle task:", error);
     }
-  }
+  };
 
   // Handler for deleting a task
   const handleDeleteTask = async (taskId: string) => {
     // Simple confirmation dialog
-    const task = tasks.find((t) => t.id === taskId)
-    if (!task) return
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
 
     const confirmed = window.confirm(
-      `Are you sure you want to delete "${task.title}"?`,
-    )
+      `Are you sure you want to delete "${task.title}"?`
+    );
 
-    if (!confirmed) return
+    if (!confirmed) return;
 
     try {
-      await deleteTaskMutation.mutateAsync(taskId)
+      await deleteTaskMutation.mutateAsync(taskId);
     } catch (error) {
-      console.error('Failed to delete task:', error)
+      console.error("Failed to delete task:", error);
     }
-  }
+  };
 
   // Error state
   if (error) {
@@ -88,9 +88,10 @@ export const NewTab = () => {
             <p className={styles.errorMessage}>
               {error instanceof Error
                 ? error.message
-                : 'An unknown error occurred'}
+                : "An unknown error occurred"}
             </p>
             <button
+              type="button"
               onClick={() => window.location.reload()}
               className={styles.retryButton}
             >
@@ -99,7 +100,7 @@ export const NewTab = () => {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   // Loading state
@@ -113,11 +114,11 @@ export const NewTab = () => {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
-  const hasActiveTasks = tasks.some((task) => !task.completed)
-  const showEmptyState = tasks.length === 0
+  const hasActiveTasks = tasks.some((task) => !task.completed);
+  const showEmptyState = tasks.length === 0;
 
   return (
     <NewTabLayout>
@@ -128,16 +129,17 @@ export const NewTab = () => {
               <div>
                 <h1 className={styles.title}>Onsaero Tasks</h1>
                 <p className={styles.subtitle}>
-                  {viewMode === 'tasks'
-                    ? 'Capture your to-dos instantly, every time you open a new tab'
-                    : 'Track your productivity and task completion trends'}
+                  {viewMode === "tasks"
+                    ? "Capture your to-dos instantly, every time you open a new tab"
+                    : "Track your productivity and task completion trends"}
                 </p>
               </div>
               <div className={styles.viewToggle}>
                 <button
-                  onClick={() => setViewMode('tasks')}
+                  type="button"
+                  onClick={() => setViewMode("tasks")}
                   className={`${styles.viewToggleButton} ${
-                    viewMode === 'tasks' ? styles.viewToggleButtonActive : ''
+                    viewMode === "tasks" ? styles.viewToggleButtonActive : ""
                   }`}
                   aria-label="Switch to tasks view"
                 >
@@ -162,11 +164,12 @@ export const NewTab = () => {
                   <span>Tasks</span>
                 </button>
                 <button
-                  onClick={() => setViewMode('dashboard')}
+                  type="button"
+                  onClick={() => setViewMode("dashboard")}
                   className={`${styles.viewToggleButton} ${
-                    viewMode === 'dashboard'
+                    viewMode === "dashboard"
                       ? styles.viewToggleButtonActive
-                      : ''
+                      : ""
                   }`}
                   aria-label="Switch to dashboard view"
                 >
@@ -193,7 +196,7 @@ export const NewTab = () => {
           </header>
 
           <main className={styles.main}>
-            {viewMode === 'dashboard' ? (
+            {viewMode === "dashboard" ? (
               <Suspense
                 fallback={
                   <div className={styles.loadingContainer}>
@@ -301,5 +304,5 @@ export const NewTab = () => {
         </div>
       </div>
     </NewTabLayout>
-  )
-}
+  );
+};

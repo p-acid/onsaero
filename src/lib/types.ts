@@ -37,12 +37,15 @@ export interface AuthState {
   loading: boolean
   error: string | null
   errorType?: AuthErrorType
+  isAuthenticated: boolean
 
   // Actions
   signInWithGoogle: () => Promise<void>
   signOut: () => Promise<void>
   initialize: () => Promise<void>
   clearError: () => void
+  setSession: (session: Session | null) => void
+  broadcastAuthChange: (action: AuthChangeAction) => void
 }
 
 /**
@@ -54,6 +57,68 @@ export interface AuthMessage {
   session?: Session
   error?: string
   event?: string
+}
+
+// ===== Authentication Gate Types (from contracts/) =====
+
+/**
+ * Auth change action types for cross-tab communication
+ */
+export type AuthChangeAction = 'login' | 'logout' | 'refresh' | 'server_revoke'
+
+/**
+ * Auth sync message structure for BroadcastChannel/localStorage
+ */
+export interface AuthSyncMessage {
+  type: 'AUTH_STATE_CHANGE'
+  sessionId: string | null
+  timestamp: number
+  action: AuthChangeAction
+}
+
+/**
+ * Route access level
+ */
+export type RouteAccessLevel = 'public' | 'protected'
+
+/**
+ * Route configuration for React Router
+ */
+export interface RouteConfig {
+  path: string
+  accessLevel: RouteAccessLevel
+  redirectTo?: string
+  element: React.ReactElement
+  loader?: () => Promise<unknown>
+  children?: RouteConfig[]
+}
+
+/**
+ * Protected route component props
+ */
+export interface ProtectedRouteProps {
+  children?: React.ReactNode
+  redirectTo?: string
+  requireAuth?: boolean
+  fallback?: React.ReactElement
+}
+
+/**
+ * Auth guard hook return type
+ */
+export interface AuthGuardResult {
+  isAuthenticated: boolean
+  isLoading: boolean
+  error: Error | null
+  redirectPath: string | null
+}
+
+/**
+ * Router location state for post-login redirect
+ */
+export interface RouterLocationState {
+  from?: string
+  reason?: 'unauthorized' | 'session_expired' | 'service_unavailable'
 }
 
 // Core entities - using Supabase generated types

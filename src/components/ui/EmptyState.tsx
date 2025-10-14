@@ -12,7 +12,7 @@ export const EmptyState = ({
   icon,
 }: EmptyStateProps) => {
   return (
-    <div className={styles.container} role="status" aria-live="polite">
+    <div className={styles.container} aria-live="polite">
       {icon && <div className={styles.icon}>{icon}</div>}
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.description}>{description}</p>

@@ -14,7 +14,10 @@ import type { Task } from './types'
 export function mergeTasks(
   localTasks: Task[],
   serverTasks: Task[],
-): { merged: Task[]; conflicts: number } {
+): {
+  merged: Task[]
+  conflicts: number
+} {
   const merged = new Map<string, Task>()
   let conflicts = 0
 
@@ -134,11 +137,10 @@ export async function syncPendingToServer(tasks: Task[]): Promise<{
   for (const task of pendingTasks) {
     try {
       // Remove sync_status before sending to Supabase (it's not a DB column)
-      const { sync_status, ...taskData } = task
 
       const { error } = await supabase
         .from('tasks')
-        .upsert(taskData, { onConflict: 'id' })
+        .upsert(task, { onConflict: 'id' })
 
       if (error) {
         console.error(`Failed to sync task ${task.id}:`, error)
@@ -272,12 +274,14 @@ export function setupAutoSync(intervalMinutes = 5): () => void {
         if (result.success) {
           console.log(
             `Auto-sync complete: ${result.taskCount} tasks, ${result.conflicts} conflicts`,
+            `Auto-sync complete: ${result.taskCount} tasks, ${result.conflicts} conflicts`,
           )
         } else {
           console.error('Auto-sync failed:', result.error)
         }
       }
     },
+    intervalMinutes * 60 * 1000,
     intervalMinutes * 60 * 1000,
   )
 

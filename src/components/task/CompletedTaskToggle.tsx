@@ -17,6 +17,7 @@ export const CompletedTaskToggle = ({
 
   return (
     <button
+      type="button"
       onClick={() => onToggle(!showCompleted)}
       className={styles.toggle}
       aria-label={

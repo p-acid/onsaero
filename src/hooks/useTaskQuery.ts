@@ -27,12 +27,21 @@ export const useTasksQuery = () => {
   return useQuery({
     queryKey: taskKeys.lists(),
     queryFn: async () => {
-      const tasks = await getTasks()
-      // Sync to chrome.storage after fetching
-      await syncTasksToStorage(tasks)
-      return tasks
+      console.log('[useTasksQuery] Fetching tasks...')
+      try {
+        const tasks = await getTasks()
+        console.log('[useTasksQuery] Fetched tasks:', tasks.length)
+        // Sync to chrome.storage after fetching
+        await syncTasksToStorage(tasks)
+        return tasks
+      } catch (error) {
+        console.error('[useTasksQuery] Error fetching tasks:', error)
+        throw error
+      }
     },
     staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: 2, // Limit retries
+    retryDelay: 1000,
   })
 }
 

@@ -65,7 +65,13 @@ function safeSendMessage(message: unknown): void {
 // ============================================================================
 
 /**
- * Listen for OAuth callback in tab URLs
+ * Listen for OAuth callback in tab URLs (FALLBACK)
+ *
+ * NOTE: This is a fallback mechanism. The primary OAuth flow uses
+ * chrome.identity.launchWebAuthFlow() in authStore.ts which handles
+ * the callback directly. This listener remains for backward compatibility
+ * or if the primary flow fails.
+ *
  * Extracts tokens and establishes session
  */
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
@@ -103,7 +109,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       new Date().toISOString(),
     )
 
-    // Set session in Supabase
     const { data, error } = await supabase.auth.setSession({
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -141,11 +146,13 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       })
 
       // Notify popup/tabs about successful authentication
-      safeSendMessage({
+      const authMessage = {
         type: 'AUTH_SUCCESS',
         user: data.user,
         session: data.session,
-      })
+      }
+      console.log('[Auth] Sending AUTH_SUCCESS message:', authMessage)
+      safeSendMessage(authMessage)
 
       console.log(
         '[Auth] Sign-in successful at',
@@ -264,6 +271,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
         safeSendMessage({
           type: 'AUTH_STATE_CHANGE',
           event,
+          user: session.user,
           session,
         })
       }
@@ -295,6 +303,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
         safeSendMessage({
           type: 'AUTH_STATE_CHANGE',
           event,
+          user: session.user,
           session,
         })
       }

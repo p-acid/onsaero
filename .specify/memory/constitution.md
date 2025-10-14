@@ -1,24 +1,23 @@
 <!--
 Sync Impact Report - Constitution Update
 =========================================
-Version Change: 1.0.0 → 1.1.0
-Change Type: MINOR (Expanded package manager guidance)
+Version Change: 1.1.0 → 1.2.0
+Change Type: MINOR (New styling principle added)
 
 Principles Modified:
-  - Modern Tooling - Added pnpm as required package manager
-  - Dependency Management - Expanded with pnpm-specific guidance
+  - None
 
 Sections Added:
-  - None (expanded existing sections)
+  - Principle VI: CSS-in-TypeScript Styling
 
 Sections Removed:
   - None
 
 Templates Requiring Updates:
   ✅ plan-template.md - Constitution Check gate compatible, no changes needed
-  ✅ spec-template.md - No dependency on package manager commands
-  ✅ tasks-template.md - No dependency on package manager commands
-  ✅ CLAUDE.md - Updated all npm commands to pnpm
+  ✅ spec-template.md - No dependency on styling methodology
+  ✅ tasks-template.md - No dependency on styling methodology
+  ✅ CLAUDE.md - Updated with Vanilla Extract styling guidance
 
 Follow-up Items:
   - None (all documentation synchronized)
@@ -81,6 +80,18 @@ Production builds MUST be optimized for performance:
 
 **Rationale**: Fast load times directly impact user experience and SEO. Build-time optimization is cheaper than runtime optimization.
 
+### VI. CSS-in-TypeScript Styling
+
+Styling MUST use Vanilla Extract for type-safe, maintainable styles:
+- **MUST use Vanilla Extract** (`.css.ts` files) for all component styling
+- **MUST minimize inline styles** - use inline styles ONLY for truly dynamic values (e.g., computed positions, user-controlled colors)
+- **MUST co-locate styles** with components when component-specific
+- **MUST use design tokens** for shared values (colors, spacing, typography)
+- Style variants MUST use Vanilla Extract's `styleVariants` or `recipe` APIs
+- Theme values MUST be defined in shared token files (e.g., `src/styles/tokens.css.ts`)
+
+**Rationale**: Vanilla Extract provides compile-time type safety for CSS, zero-runtime overhead, automatic critical CSS extraction, and type-checked design tokens. It prevents common CSS pitfalls (typos, unused styles, specificity conflicts) while maintaining excellent developer experience with autocomplete and refactoring support. Minimizing inline styles improves maintainability, enables better caching, and supports CSP (Content Security Policy) compliance.
+
 ## Development Workflow
 
 ### Code Quality Gates
@@ -131,6 +142,27 @@ All code changes MUST pass these gates before merge:
 - Lazy load routes and heavy components (`React.lazy`)
 - Avoid premature optimization; measure before optimizing
 
+## Styling Standards
+
+### Vanilla Extract Best Practices
+
+- **File Naming**: Component styles use `.css.ts` extension (e.g., `Button.css.ts` for `Button.tsx`)
+- **Organization**: Place `.css.ts` files adjacent to components they style
+- **Shared Styles**: Global tokens and theme values in `src/styles/` directory
+- **Type Safety**: Export style objects with explicit types from `.css.ts` files
+- **Composition**: Use `composeStyles` or spread for combining style rules
+- **Responsive**: Use Vanilla Extract's responsive utilities or media query helpers
+- **Avoid**: Inline styles except for truly dynamic runtime values
+
+### When Inline Styles Are Acceptable
+
+Inline styles MAY be used ONLY when:
+- Values are computed at runtime based on user input or dynamic data
+- Styles change based on animation frame or real-time calculations
+- Component receives style overrides via props for specific use cases (document why)
+
+All other styling MUST use Vanilla Extract `.css.ts` files.
+
 ## Governance
 
 ### Amendment Process
@@ -159,4 +191,4 @@ Constitution changes MUST:
 
 For implementation-time guidance and context, refer to `CLAUDE.md` which provides practical development information complementing these principles.
 
-**Version**: 1.1.0 | **Ratified**: 2025-10-11 | **Last Amended**: 2025-10-12
+**Version**: 1.2.0 | **Ratified**: 2025-10-11 | **Last Amended**: 2025-10-14

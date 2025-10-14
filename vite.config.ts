@@ -11,6 +11,8 @@ export default defineConfig({
     crx({ manifest }),
     vanillaExtractPlugin()
   ],
+  // Use relative paths for Chrome Extension compatibility
+  base: './',
   build: {
     rollupOptions: {
       input: {

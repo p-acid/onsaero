@@ -7,32 +7,21 @@ import type {
   AuthSyncMessage,
 } from '../lib/types'
 
-/**
- * BroadcastChannel for cross-tab auth sync
- * Fallback to localStorage for Safari < 15.4
- */
 let broadcastChannel: BroadcastChannel | null = null
 if ('BroadcastChannel' in window) {
   broadcastChannel = new BroadcastChannel('onsaero_auth_sync')
 }
 
-/**
- * Validate auth sync message for security
- * Prevents replay attacks and invalid messages
- */
 function validateAuthSyncMessage(message: unknown): message is AuthSyncMessage {
   if (!message || typeof message !== 'object') return false
 
   const msg = message as Partial<AuthSyncMessage>
 
-  // Type check
   if (msg.type !== 'AUTH_STATE_CHANGE') return false
 
-  // Timestamp check (prevent replay - reject messages older than 10 seconds)
   const now = Date.now()
   if (!msg.timestamp || Math.abs(now - msg.timestamp) > 10000) return false
 
-  // Action check
   const validActions: AuthChangeAction[] = [
     'login',
     'logout',
@@ -41,16 +30,11 @@ function validateAuthSyncMessage(message: unknown): message is AuthSyncMessage {
   ]
   if (!msg.action || !validActions.includes(msg.action)) return false
 
-  // SessionId check
   if (msg.sessionId !== null && typeof msg.sessionId !== 'string') return false
 
   return true
 }
 
-/**
- * Authentication store using Zustand
- * Manages user authentication state, OAuth flow, and cross-tab sync
- */
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   session: null,
@@ -58,18 +42,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   error: null,
   errorType: undefined,
 
-  /**
-   * Computed property: true if user is authenticated
-   * Derived from: user !== null
-   */
   get isAuthenticated() {
     return get().user !== null
   },
 
-  /**
-   * Broadcast auth state change to other tabs
-   * Uses BroadcastChannel or localStorage fallback
-   */
   broadcastAuthChange: (action: AuthChangeAction) => {
     const message: AuthSyncMessage = {
       type: 'AUTH_STATE_CHANGE',
@@ -79,29 +55,22 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
 
     if (broadcastChannel) {
-      // Use BroadcastChannel for modern browsers
       broadcastChannel.postMessage(message)
     } else {
-      // localStorage fallback for Safari < 15.4
       const key = `onsaero_auth_sync_${Date.now()}`
       localStorage.setItem(key, JSON.stringify(message))
-      // Clean up after 1 second
+
       setTimeout(() => localStorage.removeItem(key), 1000)
     }
   },
 
-  /**
-   * Initiate Google OAuth sign-in flow
-   * Opens OAuth consent screen in a new tab
-   */
   signInWithGoogle: async () => {
     try {
       set({ loading: true, error: null })
 
-      // Get redirect URL using Chrome Identity API
       const redirectUrl = chrome.identity.getRedirectURL()
+      console.log('[Auth] Chrome Identity Redirect URL:', redirectUrl)
 
-      // Initiate OAuth flow with Supabase
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -110,40 +79,222 @@ export const useAuthStore = create<AuthState>((set, get) => ({
             access_type: 'offline',
             prompt: 'consent',
           },
+          skipBrowserRedirect: true,
         },
       })
 
+      console.log('[Auth] Supabase OAuth response:', { data, error })
+
       if (error) {
+        console.error('[Auth] Supabase OAuth error:', error)
         throw error
       }
 
-      // Open OAuth URL in new tab
-      if (data?.url) {
-        await chrome.tabs.create({ url: data.url })
+      if (!data.url) {
+        throw new Error('Failed to get OAuth URL from Supabase')
       }
 
-      set({ loading: false })
+      console.log('[Auth] OAuth URL:', data.url)
+      console.log('[Auth] Expected redirect URL:', redirectUrl)
+
+      chrome.identity.launchWebAuthFlow(
+        {
+          url: data.url,
+          interactive: true,
+        },
+        async (callbackUrl) => {
+          if (chrome.runtime.lastError) {
+            const errorMessage = chrome.runtime.lastError.message || ''
+            console.error('[Auth] OAuth flow error:', errorMessage)
+            console.error('[Auth] Full error object:', chrome.runtime.lastError)
+
+            let errorType: 'cancellation' | 'network' | 'unknown' = 'unknown'
+            let displayMessage = 'Sign in failed'
+
+            if (
+              errorMessage.includes('canceled') ||
+              errorMessage.includes('cancelled') ||
+              errorMessage.includes('closed')
+            ) {
+              errorType = 'cancellation'
+              displayMessage = 'Sign-in cancelled'
+            } else if (
+              errorMessage.includes('network') ||
+              errorMessage.includes('could not be loaded')
+            ) {
+              errorType = 'network'
+              displayMessage =
+                'Authorization page could not be loaded. Please check Supabase configuration.'
+            }
+
+            set({
+              error: displayMessage,
+              errorType,
+              loading: false,
+            })
+            return
+          }
+
+          if (!callbackUrl) {
+            console.error('[Auth] No callback URL received')
+            set({
+              error: 'No callback URL received',
+              errorType: 'unknown',
+              loading: false,
+            })
+            return
+          }
+
+          try {
+            console.log('[Auth] Processing OAuth callback URL:', callbackUrl)
+
+            const url = new URL(callbackUrl)
+            console.log('[Auth] Callback URL hash:', url.hash)
+            console.log('[Auth] Callback URL search:', url.search)
+
+            const searchParams = new URLSearchParams(url.search)
+            const code = searchParams.get('code')
+
+            const hashParams = new URLSearchParams(url.hash.replace('#', ''))
+            const accessToken = hashParams.get('access_token')
+            const refreshToken = hashParams.get('refresh_token')
+
+            console.log('[Auth] Code present (PKCE):', !!code)
+            console.log(
+              '[Auth] Access token present (implicit):',
+              !!accessToken,
+            )
+            console.log(
+              '[Auth] Refresh token present (implicit):',
+              !!refreshToken,
+            )
+
+            if (code) {
+              console.log(
+                '[Auth] Using PKCE flow - exchanging code for session...',
+              )
+
+              const { data: sessionData, error: sessionError } =
+                await supabase.auth.exchangeCodeForSession(code)
+
+              if (sessionError) {
+                throw sessionError
+              }
+
+              if (sessionData.session && sessionData.user) {
+                await chrome.storage.local.set({
+                  supabaseSession: {
+                    access_token: sessionData.session.access_token,
+                    refresh_token: sessionData.session.refresh_token,
+                    expires_at: sessionData.session.expires_at,
+                    user: {
+                      id: sessionData.user.id,
+                      email: sessionData.user.email,
+                      user_metadata: sessionData.user.user_metadata,
+                    },
+                  },
+                })
+
+                set({
+                  user: sessionData.user,
+                  session: sessionData.session,
+                  loading: false,
+                  error: null,
+                })
+
+                get().broadcastAuthChange('login')
+
+                console.log(
+                  '[Auth] Sign-in successful (PKCE):',
+                  sessionData.user.email,
+                )
+              }
+
+              return
+            }
+
+            if (accessToken && refreshToken) {
+              console.log(
+                '[Auth] Using implicit flow - setting session with tokens...',
+              )
+
+              const { data: sessionData, error: sessionError } =
+                await supabase.auth.setSession({
+                  access_token: accessToken,
+                  refresh_token: refreshToken,
+                })
+
+              if (sessionError) {
+                throw sessionError
+              }
+
+              if (sessionData.session && sessionData.user) {
+                await chrome.storage.local.set({
+                  supabaseSession: {
+                    access_token: sessionData.session.access_token,
+                    refresh_token: sessionData.session.refresh_token,
+                    expires_at: sessionData.session.expires_at,
+                    user: {
+                      id: sessionData.user.id,
+                      email: sessionData.user.email,
+                      user_metadata: sessionData.user.user_metadata,
+                    },
+                  },
+                })
+
+                set({
+                  user: sessionData.user,
+                  session: sessionData.session,
+                  loading: false,
+                  error: null,
+                })
+
+                get().broadcastAuthChange('login')
+
+                console.log(
+                  '[Auth] Sign-in successful (implicit):',
+                  sessionData.user.email,
+                )
+              }
+
+              return
+            }
+
+            const error = hashParams.get('error') || searchParams.get('error')
+            const errorDescription =
+              hashParams.get('error_description') ||
+              searchParams.get('error_description')
+
+            if (error) {
+              throw new Error(
+                `OAuth error: ${error} - ${errorDescription || 'Unknown error'}`,
+              )
+            }
+
+            throw new Error('Missing authentication data in callback URL')
+          } catch (error) {
+            console.error('[Auth] Callback processing error:', error)
+            set({
+              error:
+                error instanceof Error
+                  ? error.message
+                  : 'Failed to process authentication',
+              errorType: 'unknown',
+              loading: false,
+            })
+          }
+        },
+      )
     } catch (error) {
       console.error('[Auth] Sign in error:', error)
 
-      // Determine error type
       let errorType: 'cancellation' | 'network' | 'unknown' = 'unknown'
       let errorMessage = 'Sign in failed'
 
       if (error instanceof Error) {
         errorMessage = error.message
 
-        // Check for cancellation errors
         if (
-          errorMessage.includes('popup_closed') ||
-          errorMessage.includes('cancelled') ||
-          errorMessage.includes('canceled')
-        ) {
-          errorType = 'cancellation'
-          errorMessage = 'Sign-in cancelled'
-        }
-        // Check for network errors
-        else if (
           errorMessage.includes('network') ||
           errorMessage.includes('fetch') ||
           errorMessage.includes('connection')
@@ -161,29 +312,19 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  /**
-   * Sign out current user
-   * Broadcasts logout BEFORE clearing state for cross-tab sync
-   * Clears session from Supabase and Chrome storage
-   */
   signOut: async () => {
     try {
       set({ loading: true, error: null })
 
-      // CRITICAL: Broadcast logout BEFORE clearing state
-      // This ensures other tabs detect the logout before session is gone
       get().broadcastAuthChange('logout')
 
-      // Sign out from Supabase
       const { error } = await supabase.auth.signOut()
       if (error) {
         throw error
       }
 
-      // Clear session from Chrome storage
       await chrome.storage.local.remove('supabaseSession')
 
-      // Clear local state
       set({
         user: null,
         session: null,
@@ -198,10 +339,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  /**
-   * Set session and broadcast login event
-   * Used for manual session updates (e.g., OAuth callback)
-   */
   setSession: (session) => {
     set({ session, user: session?.user || null })
     if (session) {
@@ -209,19 +346,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
-  /**
-   * Initialize auth state from stored session
-   * Called on app startup to restore authentication
-   */
   initialize: async () => {
     try {
       set({ loading: true })
 
-      // Request session from background service worker
       const response = await chrome.runtime.sendMessage({ type: 'GET_SESSION' })
 
       if (response?.session) {
-        // Restore session in Supabase client
         const { data, error } = await supabase.auth.setSession({
           access_token: response.session.access_token,
           refresh_token: response.session.refresh_token,
@@ -233,14 +364,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           return
         }
 
-        // Update state with restored session
         set({
           user: data.user,
           session: data.session,
           loading: false,
         })
       } else {
-        // No stored session
         set({ loading: false })
       }
     } catch (error) {
@@ -257,16 +386,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 }))
 
-/**
- * Listen for auth state changes from background script
- * Updates store when authentication events occur
- */
 chrome.runtime.onMessage.addListener((message: AuthMessage) => {
+  console.log('[AuthStore] Received message from background:', message)
   const { type, user, session, error } = message
 
   switch (type) {
     case 'AUTH_SUCCESS':
     case 'AUTH_STATE_CHANGE':
+      console.log('[AuthStore] Processing AUTH_SUCCESS/STATE_CHANGE', {
+        user,
+        session,
+      })
       if (user && session) {
         useAuthStore.setState({
           user,
@@ -274,44 +404,41 @@ chrome.runtime.onMessage.addListener((message: AuthMessage) => {
           loading: false,
           error: null,
         })
+        console.log('[AuthStore] Store updated with user:', user.email)
+      } else {
+        console.warn('[AuthStore] Missing user or session in message')
       }
       break
 
     case 'AUTH_ERROR':
+      console.error('[AuthStore] Processing AUTH_ERROR:', error)
       useAuthStore.setState({
         error: error || 'Authentication error',
         loading: false,
       })
       break
+
+    default:
+      console.log('[AuthStore] Ignoring message type:', type)
   }
 })
 
-/**
- * Setup cross-tab synchronization listener
- * Detects auth changes in other tabs and re-initializes state
- */
 if (broadcastChannel) {
-  // Use BroadcastChannel for modern browsers
   broadcastChannel.onmessage = (event) => {
     if (validateAuthSyncMessage(event.data)) {
-      // Re-initialize auth state when another tab changes auth
       useAuthStore.getState().initialize()
     }
   }
 } else {
-  // localStorage fallback for Safari < 15.4
   window.addEventListener('storage', (event) => {
     if (!event.key?.startsWith('onsaero_auth_sync_')) return
-    if (!event.newValue) return // Ignore delete events
+    if (!event.newValue) return
 
     try {
       const message = JSON.parse(event.newValue)
       if (validateAuthSyncMessage(message)) {
-        // Re-initialize auth state when another tab changes auth
         useAuthStore.getState().initialize()
       }
-    } catch {
-      // Ignore parse errors
-    }
+    } catch {}
   })
 }

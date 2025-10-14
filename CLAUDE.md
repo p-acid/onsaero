@@ -22,6 +22,7 @@ This is a React + TypeScript + Vite project using React 19 with SWC for Fast Ref
 - **Build Tool**: Vite 7 with `@vitejs/plugin-react-swc`
 - **Framework**: React 19.1.1
 - **Language**: TypeScript 5.9 with strict mode enabled
+- **Styling**: Vanilla Extract 1.17 (CSS-in-TypeScript with zero-runtime overhead)
 - **Linting & Formatting**: Biome 2.2.5
 - **Routing**: React Router v6 (with data router API)
 - **State Management**: Zustand 5.0
@@ -60,7 +61,8 @@ This is a Chrome extension for task management with the following structure:
 - **Components**: `src/components/` - Reusable UI components and guards
 - **Hooks**: `src/hooks/` - Custom hooks for auth, tasks, metrics
 - **Stores**: `src/stores/` - Zustand stores (authStore)
-- **Global styles**: `src/index.css` and component-specific CSS modules
+- **Styles**: `src/styles/` - Vanilla Extract design tokens and shared styles
+- **Component styles**: Co-located `.css.ts` files adjacent to components
 
 ### Authentication Architecture
 
@@ -107,3 +109,67 @@ The project implements a client-side authentication gate with the following patt
 - Lazy loading for Dashboard component
 
 The project uses React 19's createRoot API with StrictMode enabled for development checks.
+
+## Styling with Vanilla Extract
+
+The project uses Vanilla Extract for type-safe, zero-runtime CSS-in-TypeScript.
+
+### File Structure
+
+```
+src/
+├── styles/
+│   ├── tokens.css.ts       # Design tokens (colors, spacing, typography)
+│   └── global.css.ts       # Global styles and resets
+└── components/
+    ├── Button/
+    │   ├── Button.tsx
+    │   └── Button.css.ts   # Component-specific styles
+    └── Card/
+        ├── Card.tsx
+        └── Card.css.ts
+```
+
+### Key Principles
+
+1. **Type-Safe Styles**: All styles are written in `.css.ts` files with full TypeScript support
+2. **Co-location**: Component styles live adjacent to the component file
+3. **Design Tokens**: Shared values (colors, spacing, etc.) defined in `src/styles/tokens.css.ts`
+4. **Zero Runtime**: Styles are extracted at build time, no runtime CSS-in-JS overhead
+5. **Minimize Inline Styles**: Use inline styles ONLY for truly dynamic runtime values
+
+### Example Usage
+
+```typescript
+// Button.css.ts
+import { style } from '@vanilla-extract/css';
+import { tokens } from '../../styles/tokens.css';
+
+export const button = style({
+  padding: tokens.spacing.medium,
+  backgroundColor: tokens.color.primary,
+  color: tokens.color.white,
+  border: 'none',
+  borderRadius: tokens.borderRadius.small,
+  cursor: 'pointer',
+  ':hover': {
+    backgroundColor: tokens.color.primaryHover,
+  },
+});
+
+// Button.tsx
+import { button } from './Button.css';
+
+export function Button({ children }: { children: React.ReactNode }) {
+  return <button className={button}>{children}</button>;
+}
+```
+
+### When to Use Inline Styles
+
+Inline styles are acceptable ONLY when:
+- Values are computed at runtime (e.g., `style={{ top: mouseY }}`)
+- Styles depend on dynamic user data (e.g., user-selected colors)
+- Animation values that change per frame
+
+For everything else, use Vanilla Extract `.css.ts` files.

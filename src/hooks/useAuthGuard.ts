@@ -34,9 +34,12 @@ import { useAuthStore } from '../stores/authStore'
  */
 export function useAuthGuard(): AuthGuardResult {
   // Subscribe to auth store state with fine-grained selectors
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  const user = useAuthStore((state) => state.user)
   const isLoading = useAuthStore((state) => state.loading)
   const authError = useAuthStore((state) => state.error)
+
+  // Calculate isAuthenticated from user state
+  const isAuthenticated = user !== null
 
   // Convert auth error string to Error object if present
   const error = authError ? new Error(authError) : null

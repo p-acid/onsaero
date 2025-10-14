@@ -28,6 +28,39 @@ const supabase = createClient<Database>(
 const REDIRECT_URL = chrome.identity.getRedirectURL()
 
 // ============================================================================
+// Utility Functions
+// ============================================================================
+
+/**
+ * Safely send a message to runtime listeners
+ * Catches "Receiving end does not exist" errors when no listeners are present
+ */
+function safeSendMessage(message: unknown): void {
+  try {
+    chrome.runtime.sendMessage(message, () => {
+      // Check for runtime errors (e.g., no listeners)
+      if (chrome.runtime.lastError) {
+        // This is expected when no tabs/popup are listening
+        console.debug(
+          '[Message] No listeners for message:',
+          message,
+          '- Error:',
+          chrome.runtime.lastError.message,
+        )
+      }
+    })
+  } catch (error) {
+    // Handle synchronous errors
+    console.debug(
+      '[Message] Failed to send message:',
+      message,
+      '- Error:',
+      error,
+    )
+  }
+}
+
+// ============================================================================
 // OAuth Authentication Handlers
 // ============================================================================
 
@@ -83,7 +116,8 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
         '- Error:',
         error.message,
       )
-      chrome.runtime.sendMessage({
+
+      safeSendMessage({
         type: 'AUTH_ERROR',
         error: error.message,
       })
@@ -107,7 +141,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       })
 
       // Notify popup/tabs about successful authentication
-      chrome.runtime.sendMessage({
+      safeSendMessage({
         type: 'AUTH_SUCCESS',
         user: data.user,
         session: data.session,
@@ -132,7 +166,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       ':',
       error,
     )
-    chrome.runtime.sendMessage({
+    safeSendMessage({
       type: 'AUTH_ERROR',
       error: error instanceof Error ? error.message : 'Authentication failed',
     })
@@ -227,7 +261,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
         })
 
         // Notify tabs
-        chrome.runtime.sendMessage({
+        safeSendMessage({
           type: 'AUTH_STATE_CHANGE',
           event,
           session,
@@ -258,7 +292,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
         })
 
         // Notify tabs
-        chrome.runtime.sendMessage({
+        safeSendMessage({
           type: 'AUTH_STATE_CHANGE',
           event,
           session,
@@ -272,7 +306,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
       await chrome.storage.local.remove('supabaseSession')
 
       // Notify tabs
-      chrome.runtime.sendMessage({
+      safeSendMessage({
         type: 'AUTH_STATE_CHANGE',
         event,
         session: null,

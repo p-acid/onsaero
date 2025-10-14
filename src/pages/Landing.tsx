@@ -4,11 +4,13 @@
  * Public landing page accessible without authentication
  * Shows welcome message and navigation options
  * Conditionally renders authenticated context when user is logged in
+ * Automatically redirects authenticated users to /tasks
  *
  * @module pages/Landing
  */
 
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/authStore'
 
 /**
@@ -19,12 +21,21 @@ import { useAuthStore } from '../stores/authStore'
  * - Link to tasks (if authenticated) or login (if not)
  * - Authenticated navigation context (user email, link to tasks)
  * - Responsive layout
+ * - Auto-redirect authenticated users to /tasks
  *
  * @returns {JSX.Element} Landing page element
  */
 export function Landing() {
+  const navigate = useNavigate()
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   const user = useAuthStore((state) => state.user)
+
+  // Redirect authenticated users to /tasks
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/tasks', { replace: true })
+    }
+  }, [isAuthenticated, navigate])
 
   return (
     <div

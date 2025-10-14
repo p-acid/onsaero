@@ -14,8 +14,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        newtab: 'newtab.html',
-        popup: 'popup.html'
+        newtab: 'newtab.html'
       },
       output: {
         // Manual chunk splitting for optimal bundle size

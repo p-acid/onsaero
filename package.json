@@ -1,5 +1,5 @@
 {
-  "name": "onsaero-mono",
+  "name": "onsaero",
   "private": true,
   "scripts": {
     "build": "turbo run build",

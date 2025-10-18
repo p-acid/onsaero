@@ -14,7 +14,7 @@ export interface AuthState extends CreateAuthStoreParams {
 
 export type AuthStore = ReturnType<typeof createAuthStore>
 
-export const createAuthStore = (initProps?: CreateAuthStoreParams) => {
+export const createAuthStore = (initProps: CreateAuthStoreParams) => {
   const DEFAULT_PROPS: Pick<
     CreateAuthStoreParams,
     OptionalKeys<CreateAuthStoreParams>

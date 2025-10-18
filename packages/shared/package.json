@@ -1,0 +1,12 @@
+{
+   "name": "@onsaero/shared",
+   "version": "1.0.0",
+   "private": true,
+   "exports": {
+      ".": "./src/index.ts"
+   },
+   "scripts": {
+      "generate-types": "supabase gen types typescript --project-id ygpibnhtogoxroejgatr > ./types/supabase.d.ts"
+   },
+   "license": "MIT"
+}

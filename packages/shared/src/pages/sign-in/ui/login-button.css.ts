@@ -16,38 +16,6 @@ export const loadingSpinner = style({
   fontWeight: 500,
 })
 
-export const signInButton = style({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '8px',
-  padding: '10px 20px',
-  backgroundColor: '#fff',
-  color: '#1f2937',
-  border: '1px solid #d1d5db',
-  borderRadius: '8px',
-  fontSize: '14px',
-  fontWeight: 500,
-  cursor: 'pointer',
-  transition: 'all 0.2s ease',
-  boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-
-  ':hover': {
-    backgroundColor: '#f9fafb',
-    borderColor: '#9ca3af',
-    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
-  },
-
-  ':active': {
-    backgroundColor: '#f3f4f6',
-    transform: 'scale(0.98)',
-  },
-
-  ':disabled': {
-    opacity: 0.6,
-    cursor: 'not-allowed',
-  },
-})
-
 export const profileContainer = style({
   display: 'flex',
   alignItems: 'center',

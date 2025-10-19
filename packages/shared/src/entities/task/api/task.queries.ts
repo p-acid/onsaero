@@ -55,7 +55,6 @@ export const useAddTaskMutation = () => {
         completed_at: null,
         updated_at: new Date().toISOString(),
         display_order: previousTasks?.length || 0,
-        sync_status: 'pending',
       }
 
       queryClient.setQueryData<Task[]>(taskKeys.lists(), (old = []) => [

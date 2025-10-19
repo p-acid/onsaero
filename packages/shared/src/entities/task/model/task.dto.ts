@@ -1,7 +1,9 @@
-import type { Database, SetRequired } from '@/shared/types'
+import type { Database, SetRequired } from '../../../shared/types'
+
+type InsertTask = Database['public']['Tables']['tasks']['Insert']
 
 export type NewTask = Omit<
-  Database['public']['Tables']['tasks']['Insert'],
+  InsertTask,
   'id' | 'created_at' | 'updated_at' | 'completed_at'
 >
 

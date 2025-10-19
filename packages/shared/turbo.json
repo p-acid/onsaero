@@ -1,0 +1,22 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["build:styles", "build:modules"]
+    },
+    "build:styles": {
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "with": ["dev:styles", "dev:modules"]
+    },
+    "dev:modules": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:styles": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

@@ -10,6 +10,8 @@ export const SignInPage = () => {
           <p className={styles.subtitle}>Task management for productivity</p>
         </div>
 
+        <p className="px-5 py-1 text-red-500">Hello</p>
+
         <div className={styles.buttonWrapper}>
           <LoginButton />
         </div>

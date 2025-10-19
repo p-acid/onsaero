@@ -3,6 +3,8 @@ import { RouterProvider } from 'react-router'
 import { webAuthStore } from '@/shared/store'
 import { router } from './router'
 
+import '@onsaero/shared/styles.css'
+
 function App() {
   return (
     <AuthContextProvider store={webAuthStore}>

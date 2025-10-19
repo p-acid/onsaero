@@ -1,4 +1,3 @@
-import { Loader } from '../shared/ui'
 import * as styles from './loading-fallback.css'
 
 interface LoadingFallbackProps {
@@ -8,7 +7,7 @@ interface LoadingFallbackProps {
 export const LoadingFallback = ({ text }: LoadingFallbackProps) => {
   return (
     <div className={styles.container}>
-      <Loader />
+      <div /> {/* Loading */}
       <div className={styles.text}>{text}</div>
     </div>
   )

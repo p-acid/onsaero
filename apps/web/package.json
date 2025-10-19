@@ -13,6 +13,7 @@
     "@onsaero/shared": "workspace:*"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
     "@vanilla-extract/vite-plugin": "^5.1.1",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "typescript": "~5.9.3",

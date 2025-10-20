@@ -42,8 +42,8 @@ description: "Task list for page markup with Tailwind CSS and shadcn/ui"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T007 Install lucide-react dependency in packages/shared/ via pnpm add lucide-react
-- [ ] T008 Verify Tailwind CSS v4 configuration in tailwind.config.ts supports dark mode class strategy
+- [X] T007 Install lucide-react dependency in packages/shared/ via pnpm add lucide-react
+- [X] T008 Verify Tailwind CSS v4 configuration in tailwind.config.ts supports dark mode class strategy
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -57,14 +57,14 @@ description: "Task list for page markup with Tailwind CSS and shadcn/ui"
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Implement hero section with product name, tagline, and CTA button in packages/shared/src/pages/landing/ui/index.tsx
-- [ ] T010 [US1] Add Button component import from @/shared/ui and configure CTA to navigate to /sign-in in packages/shared/src/pages/landing/ui/index.tsx
-- [ ] T011 [P] [US1] Implement 3 feature cards using Card component with emoji icons (⚡, 📊, 🔄) in packages/shared/src/pages/landing/ui/index.tsx
-- [ ] T012 [US1] Add responsive layout with mobile stacking and desktop grid (grid-cols-1 md:grid-cols-3) for feature cards in packages/shared/src/pages/landing/ui/index.tsx
-- [ ] T013 [US1] Implement header navigation with sign-in link in packages/shared/src/pages/landing/ui/index.tsx
-- [ ] T014 [US1] Add dark mode support with dark: utility classes for all text and backgrounds in packages/shared/src/pages/landing/ui/index.tsx
-- [ ] T015 [US1] Add semantic HTML structure (<header>, <main>, <section>) and heading hierarchy (h1, h2, h3) in packages/shared/src/pages/landing/ui/index.tsx
-- [ ] T016 [US1] Add focus-visible styles to CTA button and navigation links in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T009 [US1] Implement hero section with product name, tagline, and CTA button in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T010 [US1] Add Button component import from @/shared/ui and configure CTA to navigate to /sign-in in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T011 [P] [US1] Implement 3 feature cards using Card component with emoji icons (⚡, 📊, 🔄) in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T012 [US1] Add responsive layout with mobile stacking and desktop grid (grid-cols-1 md:grid-cols-3) for feature cards in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T013 [US1] Implement header navigation with sign-in link in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T014 [US1] Add dark mode support with dark: utility classes for all text and backgrounds in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T015 [US1] Add semantic HTML structure (<header>, <main>, <section>) and heading hierarchy (h1, h2, h3) in packages/shared/src/pages/landing/ui/index.tsx
+- [X] T016 [US1] Add focus-visible styles to CTA button and navigation links in packages/shared/src/pages/landing/ui/index.tsx
 
 **Checkpoint**: Landing page is fully functional. Test independently at 320px, 768px, 1024px viewports before proceeding.
 
@@ -78,13 +78,13 @@ description: "Task list for page markup with Tailwind CSS and shadcn/ui"
 
 ### Implementation for User Story 2
 
-- [ ] T017 [P] [US2] Implement centered layout with flexbox (flex min-h-screen items-center justify-center) in packages/shared/src/pages/sign-in/ui/index.tsx
-- [ ] T018 [P] [US2] Add product branding (logo/tagline) with proper heading hierarchy in packages/shared/src/pages/sign-in/ui/index.tsx
-- [ ] T019 [US2] Style LoginButton component with shadcn/ui Button in packages/shared/src/pages/sign-in/ui/login-button.tsx
-- [ ] T020 [US2] Add hover and focus-visible states to OAuth button in packages/shared/src/pages/sign-in/ui/login-button.tsx
-- [ ] T021 [US2] Add responsive sizing for touch targets (min-h-11 min-w-44) on mobile in packages/shared/src/pages/sign-in/ui/login-button.tsx
-- [ ] T022 [US2] Add dark mode support with dark: utility classes in packages/shared/src/pages/sign-in/ui/index.tsx
-- [ ] T023 [US2] Add semantic HTML (<main>, <h1>) in packages/shared/src/pages/sign-in/ui/index.tsx
+- [X] T017 [P] [US2] Implement centered layout with flexbox (flex min-h-screen items-center justify-center) in packages/shared/src/pages/sign-in/ui/index.tsx
+- [X] T018 [P] [US2] Add product branding (logo/tagline) with proper heading hierarchy in packages/shared/src/pages/sign-in/ui/index.tsx
+- [X] T019 [US2] Style LoginButton component with shadcn/ui Button in packages/shared/src/pages/sign-in/ui/login-button.tsx
+- [X] T020 [US2] Add hover and focus-visible states to OAuth button in packages/shared/src/pages/sign-in/ui/login-button.tsx
+- [X] T021 [US2] Add responsive sizing for touch targets (min-h-11 min-w-44) on mobile in packages/shared/src/pages/sign-in/ui/login-button.tsx
+- [X] T022 [US2] Add dark mode support with dark: utility classes in packages/shared/src/pages/sign-in/ui/index.tsx
+- [X] T023 [US2] Add semantic HTML (<main>, <h1>) in packages/shared/src/pages/sign-in/ui/index.tsx
 
 **Checkpoint**: Sign-in page is fully functional. Test independently with keyboard navigation and across viewports.
 
@@ -100,11 +100,11 @@ description: "Task list for page markup with Tailwind CSS and shadcn/ui"
 
 ### Implementation for User Story 4
 
-- [ ] T024 [P] [US4] Create SVG spinner with animate-spin utility in apps/web/src/pages/redirect/ui/index.tsx
-- [ ] T025 [P] [US4] Add centered flexbox layout (flex min-h-screen items-center justify-center flex-col) in apps/web/src/pages/redirect/ui/index.tsx
-- [ ] T026 [US4] Add Korean loading text with proper text styling and spacing in apps/web/src/pages/redirect/ui/index.tsx
-- [ ] T027 [US4] Add dark mode support for spinner and text in apps/web/src/pages/redirect/ui/index.tsx
-- [ ] T028 [US4] Verify loading state appears within 100ms (SC-008) by testing with network throttling
+- [X] T024 [P] [US4] Create SVG spinner with animate-spin utility in apps/web/src/pages/redirect/ui/index.tsx
+- [X] T025 [P] [US4] Add centered flexbox layout (flex min-h-screen items-center justify-center flex-col) in apps/web/src/pages/redirect/ui/index.tsx
+- [X] T026 [US4] Add Korean loading text with proper text styling and spacing in apps/web/src/pages/redirect/ui/index.tsx
+- [X] T027 [US4] Add dark mode support for spinner and text in apps/web/src/pages/redirect/ui/index.tsx
+- [X] T028 [US4] Verify loading state appears within 100ms (SC-008) by testing with network throttling
 
 **Checkpoint**: Redirect page loading state is functional. Test with OAuth flow.
 
@@ -118,23 +118,23 @@ description: "Task list for page markup with Tailwind CSS and shadcn/ui"
 
 ### Implementation for User Story 3
 
-- [ ] T029 [P] [US3] Create Sidebar component file at packages/shared/src/pages/dashboard/ui/sidebar.tsx
-- [ ] T030 [P] [US3] Create MobileNav component file at packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
-- [ ] T031 [US3] Implement Sidebar with fixed width (w-64) and navigation links in packages/shared/src/pages/dashboard/ui/sidebar.tsx
-- [ ] T032 [US3] Add logout button using shadcn/ui Button with LogOut icon from lucide-react in packages/shared/src/pages/dashboard/ui/sidebar.tsx
-- [ ] T033 [US3] Add Separator components between navigation sections in packages/shared/src/pages/dashboard/ui/sidebar.tsx
-- [ ] T034 [US3] Implement MobileNav using Sheet component with hamburger trigger in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
-- [ ] T035 [US3] Add Menu and X icons from lucide-react for hamburger button in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
-- [ ] T036 [US3] Add aria-label="Open navigation menu" to hamburger button in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
-- [ ] T037 [US3] Implement flexbox layout with sidebar (hidden lg:block) and main content (flex-1) in packages/shared/src/pages/dashboard/ui/index.tsx
-- [ ] T038 [US3] Add responsive breakpoint logic: show Sidebar on desktop (≥1024px), show MobileNav on mobile (<1024px) in packages/shared/src/pages/dashboard/ui/index.tsx
-- [ ] T039 [US3] Create placeholder task management sections in main content area in packages/shared/src/pages/dashboard/ui/index.tsx
-- [ ] T040 [US3] Add dark mode support to Sidebar, MobileNav, and main content in packages/shared/src/pages/dashboard/ui/
-- [ ] T041 [US3] Add semantic HTML (<nav>, <aside>, <main>) and proper heading hierarchy in packages/shared/src/pages/dashboard/ui/index.tsx
-- [ ] T042 [US3] Add focus-visible styles to all navigation links and logout button in packages/shared/src/pages/dashboard/ui/sidebar.tsx
-- [ ] T043 [US3] Add aria-current="page" to active navigation link in packages/shared/src/pages/dashboard/ui/sidebar.tsx
-- [ ] T044 [US3] Verify Sheet closes with ESC key, X button, and backdrop click in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
-- [ ] T045 [US3] Verify keyboard tab order: hamburger → sheet navigation → main content in packages/shared/src/pages/dashboard/ui/index.tsx
+- [X] T029 [P] [US3] Create Sidebar component file at packages/shared/src/pages/dashboard/ui/sidebar.tsx
+- [X] T030 [P] [US3] Create MobileNav component file at packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
+- [X] T031 [US3] Implement Sidebar with fixed width (w-64) and navigation links in packages/shared/src/pages/dashboard/ui/sidebar.tsx
+- [X] T032 [US3] Add logout button using shadcn/ui Button with LogOut icon from lucide-react in packages/shared/src/pages/dashboard/ui/sidebar.tsx
+- [X] T033 [US3] Add Separator components between navigation sections in packages/shared/src/pages/dashboard/ui/sidebar.tsx
+- [X] T034 [US3] Implement MobileNav using Sheet component with hamburger trigger in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
+- [X] T035 [US3] Add Menu and X icons from lucide-react for hamburger button in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
+- [X] T036 [US3] Add aria-label="Open navigation menu" to hamburger button in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
+- [X] T037 [US3] Implement flexbox layout with sidebar (hidden lg:block) and main content (flex-1) in packages/shared/src/pages/dashboard/ui/index.tsx
+- [X] T038 [US3] Add responsive breakpoint logic: show Sidebar on desktop (≥1024px), show MobileNav on mobile (<1024px) in packages/shared/src/pages/dashboard/ui/index.tsx
+- [X] T039 [US3] Create placeholder task management sections in main content area in packages/shared/src/pages/dashboard/ui/index.tsx
+- [X] T040 [US3] Add dark mode support to Sidebar, MobileNav, and main content in packages/shared/src/pages/dashboard/ui/
+- [X] T041 [US3] Add semantic HTML (<nav>, <aside>, <main>) and proper heading hierarchy in packages/shared/src/pages/dashboard/ui/index.tsx
+- [X] T042 [US3] Add focus-visible styles to all navigation links and logout button in packages/shared/src/pages/dashboard/ui/sidebar.tsx
+- [X] T043 [US3] Add aria-current="page" to active navigation link in packages/shared/src/pages/dashboard/ui/sidebar.tsx
+- [X] T044 [US3] Verify Sheet closes with ESC key, X button, and backdrop click in packages/shared/src/pages/dashboard/ui/mobile-nav.tsx
+- [X] T045 [US3] Verify keyboard tab order: hamburger → sheet navigation → main content in packages/shared/src/pages/dashboard/ui/index.tsx
 
 **Checkpoint**: Dashboard is fully functional with sidebar navigation. Test desktop and mobile layouts independently.
 
@@ -144,19 +144,19 @@ description: "Task list for page markup with Tailwind CSS and shadcn/ui"
 
 **Purpose**: Final refinements, validation, and documentation
 
-- [ ] T046 [P] Verify all pages load without horizontal scroll at 320px width using browser DevTools
-- [ ] T047 [P] Verify all interactive elements have hover states using mouse interaction
-- [ ] T048 [P] Verify all interactive elements have focus-visible states using Tab key navigation
-- [ ] T049 [P] Test keyboard navigation (Tab, Enter, ESC) across all 4 pages
-- [ ] T050 [P] Verify 4.5:1 contrast ratio for text in light and dark modes using WebAIM Contrast Checker
-- [ ] T051 [P] Test screen reader with Safari + VoiceOver (macOS) or Chrome + NVDA (Windows) on all pages
-- [ ] T052 [P] Test responsive layouts at 320px, 768px, 1024px, 1920px viewports
-- [ ] T053 [P] Test browser zoom at 150% and 200% on all pages
-- [ ] T054 [P] Verify critical content visible with JavaScript disabled (Landing, Sign-In structure)
-- [ ] T055 [P] Run biome check on packages/shared/src and apps/web/src to verify linting passes
-- [ ] T056 [P] Run pnpm check-types in packages/shared and apps/web to verify TypeScript compilation
-- [ ] T057 [P] Build shared package with pnpm build and verify dist/ folder contains compiled files
-- [ ] T058 Verify all Success Criteria (SC-001 through SC-008) from spec.md pass
+- [X] T046 [P] Verify all pages load without horizontal scroll at 320px width using browser DevTools
+- [X] T047 [P] Verify all interactive elements have hover states using mouse interaction
+- [X] T048 [P] Verify all interactive elements have focus-visible states using Tab key navigation
+- [X] T049 [P] Test keyboard navigation (Tab, Enter, ESC) across all 4 pages
+- [X] T050 [P] Verify 4.5:1 contrast ratio for text in light and dark modes using WebAIM Contrast Checker
+- [X] T051 [P] Test screen reader with Safari + VoiceOver (macOS) or Chrome + NVDA (Windows) on all pages
+- [X] T052 [P] Test responsive layouts at 320px, 768px, 1024px, 1920px viewports
+- [X] T053 [P] Test browser zoom at 150% and 200% on all pages
+- [X] T054 [P] Verify critical content visible with JavaScript disabled (Landing, Sign-In structure)
+- [X] T055 [P] Run biome check on packages/shared/src and apps/web/src to verify linting passes
+- [X] T056 [P] Run pnpm check-types in packages/shared and apps/web to verify TypeScript compilation
+- [X] T057 [P] Build shared package with pnpm build and verify dist/ folder contains compiled files
+- [X] T058 Verify all Success Criteria (SC-001 through SC-008) from spec.md pass
 
 ---
 

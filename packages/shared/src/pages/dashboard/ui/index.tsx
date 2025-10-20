@@ -1,33 +1,39 @@
-import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router'
-import { PAGE_ROUTES } from '../../../shared/config'
-import { useAuthContext } from '../../../shared/context'
-import { supabase } from '../../../shared/lib'
+import { MobileNav } from './mobile-nav'
+import { Sidebar } from './sidebar'
 
 export const DashboardPage = () => {
-  const navigate = useNavigate()
-
-  const updateAuth = useAuthContext((state) => state.updateAuth)
-
-  useEffect(() => {
-    supabase.auth.getSession().then(console.log)
-  }, [])
-
   return (
-    <div>
-      <Link to={PAGE_ROUTES.LANDING}>Landing</Link>
-      <Link to={PAGE_ROUTES.SIGN_IN}>Login</Link>
+    <div className="flex min-h-screen bg-background text-foreground">
+      <Sidebar />
 
-      <button
-        type="button"
-        onClick={async () => {
-          await supabase.auth.signOut()
-          updateAuth({ user: null, session: null })
-          navigate(PAGE_ROUTES.SIGN_IN)
-        }}
-      >
-        Logout
-      </button>
+      <div className="flex flex-1 flex-col">
+        <MobileNav />
+
+        <main className="flex-1 p-6 lg:p-8">
+          <div className="mx-auto max-w-7xl">
+            <header className="mb-8">
+              <h1 className="font-bold text-3xl">Dashboard</h1>
+              <p className="mt-2 text-muted-foreground">
+                Manage your tasks and track your productivity
+              </p>
+            </header>
+
+            <section>
+              <h2 className="mb-4 font-semibold text-xl">Active Tasks</h2>
+              <div className="rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">
+                <p>Your tasks will appear here</p>
+              </div>
+            </section>
+
+            <section className="mt-8">
+              <h2 className="mb-4 font-semibold text-xl">Completed Tasks</h2>
+              <div className="rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">
+                <p>Completed tasks will appear here</p>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
     </div>
   )
 }

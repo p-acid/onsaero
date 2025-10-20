@@ -1,4 +1,4 @@
-import { supabase } from '../../../shared/lib'
+import { supabase } from '@onsaero-shared/shared/lib'
 import type { CreateTask, NewTask, UpdateTask } from '../model/task.dto'
 import type { Task } from '../model/task.model'
 

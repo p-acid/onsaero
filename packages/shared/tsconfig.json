@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@onsaero-shared/*": ["./src/*"]
+    },
     "outDir": "dist",
     "jsx": "react-jsx",
     "lib": ["esnext", "dom"],

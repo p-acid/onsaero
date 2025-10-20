@@ -4,6 +4,9 @@
     "build": {
       "dependsOn": ["build:styles", "build:modules"]
     },
+    "build:modules": {
+      "outputs": ["dist/**"]
+    },
     "build:styles": {
       "outputs": ["dist/**"]
     },

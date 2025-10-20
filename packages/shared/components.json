@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/shared/style/global.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@onsaero-shared/shared/ui",
+    "utils": "@onsaero-shared/shared/lib",
+    "ui": "@onsaero-shared/shared/ui",
+    "lib": "@onsaero-shared/shared/lib",
+    "hooks": "@onsaero-shared/shared/hooks"
+  },
+  "iconLibrary": "lucide"
+}

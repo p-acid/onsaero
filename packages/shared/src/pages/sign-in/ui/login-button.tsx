@@ -1,12 +1,12 @@
+import { Button } from '@onsaero-shared/shared/ui'
 import { useAuthContext } from '../../../shared/context'
-import * as styles from './login-button.css'
 
 export function LoginButton() {
   const signInWithGoogle = useAuthContext((state) => state.signInWithGoogle)
 
   return (
-    <div className={styles.authContainer}>
-      <button type="button" onClick={signInWithGoogle}>
+    <div>
+      <Button variant="outline" onClick={signInWithGoogle}>
         <svg
           width="16"
           height="16"
@@ -33,7 +33,7 @@ export function LoginButton() {
           />
         </svg>
         Sign in with Google
-      </button>
+      </Button>
     </div>
   )
 }

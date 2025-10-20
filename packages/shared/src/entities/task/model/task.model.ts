@@ -1,3 +1,3 @@
-import type { Database } from '../../../shared/types'
+import type { Database } from '@onsaero-shared/shared/types'
 
 export type Task = Database['public']['Tables']['tasks']['Row']

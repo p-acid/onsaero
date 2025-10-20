@@ -1,4 +1,4 @@
-import type { Database, SetRequired } from '../../../shared/types'
+import type { Database, SetRequired } from '@onsaero-shared/shared/types'
 
 type InsertTask = Database['public']['Tables']['tasks']['Insert']
 

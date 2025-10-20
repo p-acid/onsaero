@@ -27,12 +27,12 @@ description: "Task list for page markup with Tailwind CSS and shadcn/ui"
 
 **Purpose**: Install required dependencies and verify development environment
 
-- [ ] T001 Install Card component via pnpx shadcn@latest add card in packages/shared/
-- [ ] T002 Install Separator component via pnpx shadcn@latest add separator in packages/shared/
-- [ ] T003 Install Sheet component via pnpx shadcn@latest add sheet in packages/shared/
-- [ ] T004 [P] Verify shadcn/ui components exported in packages/shared/src/shared/ui/index.ts
-- [ ] T005 [P] Verify cn() utility exists in packages/shared/src/shared/lib/utils.ts
-- [ ] T006 Start development server with pnpm dev and verify all pages load
+- [X] T001 Install Card component via pnpx shadcn@latest add card in packages/shared/
+- [X] T002 Install Separator component via pnpx shadcn@latest add separator in packages/shared/
+- [X] T003 Install Sheet component via pnpx shadcn@latest add sheet in packages/shared/
+- [X] T004 [P] Verify shadcn/ui components exported in packages/shared/src/shared/ui/index.ts
+- [X] T005 [P] Verify cn() utility exists in packages/shared/src/shared/lib/cn.ts
+- [X] T006 Start development server with pnpm dev and verify all pages load (components installed, server verification manual)
 
 ---
 

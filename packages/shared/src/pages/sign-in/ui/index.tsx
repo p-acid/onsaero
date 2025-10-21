@@ -1,20 +1,27 @@
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@onsaero-shared/shared/ui'
 import { LoginButton } from './login-button'
 
 export const SignInPage = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
-      <main className="w-full max-w-md px-4">
-        <div className="text-center">
-          <div className="mb-8">
-            <h1 className="mb-2 font-bold text-4xl">Onsaero</h1>
-            <p className="text-lg text-muted-foreground">
-              Task management for productivity
-            </p>
-          </div>
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Welcome to Onsaero!</CardTitle>
+          <CardDescription>
+            Plan your schedule, track your growth, and unlock your potential.
+          </CardDescription>
+        </CardHeader>
 
+        <CardFooter>
           <LoginButton />
-        </div>
-      </main>
+        </CardFooter>
+      </Card>
     </div>
   )
 }

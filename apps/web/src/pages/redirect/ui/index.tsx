@@ -41,5 +41,5 @@ export const RedirectPage = () => {
     handleAuth()
   }, [])
 
-  return <LoadingFallback text="로그인 중입니다..." />
+  return <LoadingFallback text="Redirect ..." />
 }

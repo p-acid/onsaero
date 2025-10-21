@@ -3,9 +3,10 @@ import {
   LandingPage,
   LoadingFallback,
   PAGE_ROUTES,
+  SidebarLayout,
   SignInPage,
 } from '@onsaero/shared'
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, Outlet } from 'react-router'
 import { RedirectPage } from '@/pages/redirect'
 import { WEB_PAGE_ROUTES } from '@/shared/config'
 import { protectedLoader } from './loader/protected-loader'
@@ -14,9 +15,22 @@ import { unauthenticatedLoader } from './loader/unauthenticated-loader'
 export const router = createBrowserRouter([
   {
     loader: protectedLoader,
+    element: (
+      <SidebarLayout>
+        <Outlet />
+      </SidebarLayout>
+    ),
     children: [
       {
         path: PAGE_ROUTES.DASHBOARD,
+        element: <DashboardPage />,
+      },
+      {
+        path: PAGE_ROUTES.GOALS,
+        element: <DashboardPage />,
+      },
+      {
+        path: PAGE_ROUTES.TASKS,
         element: <DashboardPage />,
       },
     ],

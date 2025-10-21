@@ -1,4 +1,4 @@
-import { cn } from '@onsaero-shared/shared/lib'
+import { cn } from '@onsaero-shared/shared/lib/index'
 import type * as React from 'react'
 
 function Input({ className, type, ...props }: React.ComponentProps<'input'>) {

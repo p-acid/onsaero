@@ -27,7 +27,7 @@ export const LoadingFallback = ({ text }: LoadingFallbackProps) => {
         />
       </svg>
 
-      <p className="text-lg text-muted-foreground">{text}</p>
+      <p className="text-base text-foreground">{text}</p>
     </div>
   )
 }

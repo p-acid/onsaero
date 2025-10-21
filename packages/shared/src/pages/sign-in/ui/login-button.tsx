@@ -1,15 +1,15 @@
+import { useAuthContext } from '@onsaero-shared/shared/context'
 import { Button } from '@onsaero-shared/shared/ui'
-import { useAuthContext } from '../../../shared/context'
 
 export function LoginButton() {
   const signInWithGoogle = useAuthContext((state) => state.signInWithGoogle)
 
   return (
     <Button
+      className="w-full"
       variant="outline"
       size="lg"
       onClick={signInWithGoogle}
-      className="min-h-11 min-w-44 gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <svg
         width="18"

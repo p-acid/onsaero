@@ -1,4 +1,4 @@
-import { cn } from '@onsaero-shared/shared/lib'
+import { cn } from '@onsaero-shared/shared/lib/index'
 import * as SeparatorPrimitive from '@radix-ui/react-separator'
 import type * as React from 'react'
 

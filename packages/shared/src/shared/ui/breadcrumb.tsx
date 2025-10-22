@@ -2,7 +2,6 @@ import { cn } from '@onsaero-shared/shared/lib/index'
 import { Slot } from '@radix-ui/react-slot'
 import { ChevronRight, MoreHorizontal } from 'lucide-react'
 import type * as React from 'react'
-import { Link } from 'react-router'
 
 function Breadcrumb({ ...props }: React.ComponentProps<'nav'>) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />
@@ -49,15 +48,10 @@ function BreadcrumbLink({
   )
 }
 
-function BreadcrumbPage({
-  className,
-  ...props
-}: React.ComponentProps<typeof Link>) {
+function BreadcrumbPage({ className, ...props }: React.ComponentProps<'span'>) {
   return (
-    <Link
+    <span
       data-slot="breadcrumb-page"
-      role="link"
-      aria-disabled="true"
       aria-current="page"
       className={cn('font-normal text-foreground', className)}
       {...props}

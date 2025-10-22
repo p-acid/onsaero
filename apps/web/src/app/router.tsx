@@ -5,6 +5,7 @@ import {
   PAGE_ROUTES,
   SidebarLayout,
   SignInPage,
+  TasksPage,
 } from '@onsaero/shared'
 import { createBrowserRouter, Outlet } from 'react-router'
 import { RedirectPage } from '@/pages/redirect'
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: PAGE_ROUTES.TASKS,
-        element: <DashboardPage />,
+        element: <TasksPage />,
       },
     ],
     hydrateFallbackElement: <LoadingFallback text="Loading..." />,

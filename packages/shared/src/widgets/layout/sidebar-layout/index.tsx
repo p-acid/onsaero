@@ -8,7 +8,8 @@ export const SidebarLayout = ({ children }: PropsWithChildren) => {
     <SidebarProvider>
       <LeftSidebar />
       <SidebarInset>
-        <InsetHeader /> {children}
+        <InsetHeader />
+        {children}
       </SidebarInset>
     </SidebarProvider>
   )

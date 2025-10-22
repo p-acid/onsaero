@@ -2,10 +2,11 @@ import { supabase } from '@onsaero-shared/shared/lib'
 import type { CreateTask, NewTask, UpdateTask } from '../model/task.dto'
 import type { Task } from '../model/task.model'
 
-export const getTasks = async (): Promise<Task[]> => {
+export const getTasks = async (userId: string): Promise<Task[]> => {
   const { data, error } = await supabase
     .from('tasks')
     .select('*')
+    .eq('user_id', userId)
     .order('display_order', { ascending: true })
     .order('created_at', { ascending: false })
 
@@ -17,9 +18,14 @@ export const getTasks = async (): Promise<Task[]> => {
 }
 
 export const createTask = async (newTask: CreateTask): Promise<Task> => {
+  if (!newTask.user_id) {
+    throw new Error('User ID is required to create a task')
+  }
+
   const { data: existingTasks } = await supabase
     .from('tasks')
     .select('display_order')
+    .eq('user_id', newTask.user_id)
     .order('display_order', { ascending: false })
     .limit(1)
 
@@ -27,9 +33,8 @@ export const createTask = async (newTask: CreateTask): Promise<Task> => {
 
   const insertData: NewTask = {
     ...newTask,
-    user_id: null,
     display_order: maxOrder + 1,
-    completed: false,
+    status: 'pending',
   }
 
   const { data, error } = await supabase
@@ -68,12 +73,12 @@ export const updateTask = async ({
 
 export const toggleTaskCompletion = async (
   id: string,
-  completed: boolean,
+  isCompleted: boolean,
 ): Promise<Task> => {
   return updateTask({
     id,
-    completed,
-    completed_at: completed ? new Date().toISOString() : null,
+    status: isCompleted ? 'completed' : 'pending',
+    completed_at: isCompleted ? new Date().toISOString() : null,
   })
 }
 

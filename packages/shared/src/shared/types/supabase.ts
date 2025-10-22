@@ -14,87 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
-      daily_metrics: {
-        Row: {
-          created_at: string
-          date: string
-          id: string
-          tasks_completed: number
-          tasks_created: number
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string
-          date: string
-          id?: string
-          tasks_completed?: number
-          tasks_created?: number
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string
-          date?: string
-          id?: string
-          tasks_completed?: number
-          tasks_created?: number
-          user_id?: string | null
-        }
-        Relationships: []
-      }
       tasks: {
         Row: {
-          completed: boolean
           completed_at: string | null
           created_at: string
+          description: string | null
           display_order: number
+          due_date: string | null
           id: string
+          priority: Database['public']['Enums']['task_priority'] | null
+          started_at: string | null
+          status: Database['public']['Enums']['task_status'] | null
           title: string
           updated_at: string
           user_id: string | null
         }
         Insert: {
-          completed?: boolean
           completed_at?: string | null
           created_at?: string
+          description?: string | null
           display_order?: number
+          due_date?: string | null
           id?: string
+          priority?: Database['public']['Enums']['task_priority'] | null
+          started_at?: string | null
+          status?: Database['public']['Enums']['task_status'] | null
           title: string
           updated_at?: string
           user_id?: string | null
         }
         Update: {
-          completed?: boolean
           completed_at?: string | null
           created_at?: string
+          description?: string | null
           display_order?: number
+          due_date?: string | null
           id?: string
+          priority?: Database['public']['Enums']['task_priority'] | null
+          started_at?: string | null
+          status?: Database['public']['Enums']['task_status'] | null
           title?: string
           updated_at?: string
           user_id?: string | null
-        }
-        Relationships: []
-      }
-      user_preferences: {
-        Row: {
-          default_view: string
-          show_completed_by_default: boolean
-          theme: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          default_view?: string
-          show_completed_by_default?: boolean
-          theme?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          default_view?: string
-          show_completed_by_default?: boolean
-          theme?: string
-          updated_at?: string
-          user_id?: string
         }
         Relationships: []
       }
@@ -122,7 +83,8 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      task_priority: 'row' | 'medium' | 'high' | 'urgent'
+      task_status: 'pending' | 'in_progress' | 'completed'
     }
     CompositeTypes: {
       [_ in never]: never
@@ -249,6 +211,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      task_priority: ['row', 'medium', 'high', 'urgent'],
+      task_status: ['pending', 'in_progress', 'completed'],
+    },
   },
 } as const

@@ -8,7 +8,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "prepare": "husky",
-    "generate-types:supabase": "generate-types --filter=@onsaero/shared"
+    "generate-types:supabase": "pnpm --filter=@onsaero/shared generate-types"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.75.0",

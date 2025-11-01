@@ -1,7 +1,7 @@
 import type { Task, UpdateTask } from '@onsaero-shared/entities/task'
 import { EditTaskSheet } from '@onsaero-shared/entities/task'
 import { cn } from '@onsaero-shared/shared/lib'
-import { Button, Input } from '@onsaero-shared/shared/ui'
+import { Button } from '@onsaero-shared/shared/ui'
 import { PanelRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 

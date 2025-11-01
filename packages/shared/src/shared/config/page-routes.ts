@@ -4,4 +4,5 @@ export const PAGE_ROUTES = {
   LANDING: '/landing',
   TASKS: '/tasks',
   GOALS: '/goals',
+  CREATE_GOAL: '/goals/create',
 } as const

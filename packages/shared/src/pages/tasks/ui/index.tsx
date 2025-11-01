@@ -70,7 +70,7 @@ export const TasksPage = () => {
   return (
     <div className="w-full space-y-6">
       <div className="flex items-center justify-between px-5 pt-5">
-        <h1 className="font-semibold text-2xl text-foreground">Tasks</h1>
+        <h1 className="font-bold text-foreground text-xl">Tasks</h1>
         <AddTaskSheet
           onAddTask={handleAddTask}
           isAdding={addTaskMutation.isPending}

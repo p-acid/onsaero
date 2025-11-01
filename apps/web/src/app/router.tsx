@@ -1,5 +1,7 @@
 import {
+  CreateGoalPage,
   DashboardPage,
+  GoalsPage,
   LandingPage,
   LoadingFallback,
   PAGE_ROUTES,
@@ -28,7 +30,11 @@ export const router = createBrowserRouter([
       },
       {
         path: PAGE_ROUTES.GOALS,
-        element: <DashboardPage />,
+        element: <GoalsPage />,
+      },
+      {
+        path: PAGE_ROUTES.CREATE_GOAL,
+        element: <CreateGoalPage />,
       },
       {
         path: PAGE_ROUTES.TASKS,

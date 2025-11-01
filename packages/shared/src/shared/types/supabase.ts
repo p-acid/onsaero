@@ -14,50 +14,133 @@ export type Database = {
   }
   public: {
     Tables: {
+      goals: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_at: string | null
+          id: string
+          start_at: string | null
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_at?: string | null
+          id: string
+          start_at?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_at?: string | null
+          id?: string
+          start_at?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      sub_goals: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          related_goal_id: string | null
+          related_sub_goal_id: string | null
+          title: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          related_goal_id?: string | null
+          related_sub_goal_id?: string | null
+          title?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          related_goal_id?: string | null
+          related_sub_goal_id?: string | null
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'sub_goals_related_goal_id_fkey'
+            columns: ['related_goal_id']
+            isOneToOne: false
+            referencedRelation: 'goals'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'sub_goals_related_sub_goal_id_fkey'
+            columns: ['related_sub_goal_id']
+            isOneToOne: false
+            referencedRelation: 'sub_goals'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       tasks: {
         Row: {
-          completed_at: string | null
+          complete_at: string | null
           created_at: string
           description: string | null
           display_order: number
-          due_date: string | null
+          end_date: string | null
           id: string
           priority: Database['public']['Enums']['task_priority'] | null
-          started_at: string | null
+          related_sub_goal_id: string | null
+          start_at: string | null
           status: Database['public']['Enums']['task_status'] | null
           title: string
           updated_at: string
           user_id: string | null
         }
         Insert: {
-          completed_at?: string | null
+          complete_at?: string | null
           created_at?: string
           description?: string | null
           display_order?: number
-          due_date?: string | null
+          end_date?: string | null
           id?: string
           priority?: Database['public']['Enums']['task_priority'] | null
-          started_at?: string | null
+          related_sub_goal_id?: string | null
+          start_at?: string | null
           status?: Database['public']['Enums']['task_status'] | null
           title: string
           updated_at?: string
           user_id?: string | null
         }
         Update: {
-          completed_at?: string | null
+          complete_at?: string | null
           created_at?: string
           description?: string | null
           display_order?: number
-          due_date?: string | null
+          end_date?: string | null
           id?: string
           priority?: Database['public']['Enums']['task_priority'] | null
-          started_at?: string | null
+          related_sub_goal_id?: string | null
+          start_at?: string | null
           status?: Database['public']['Enums']['task_status'] | null
           title?: string
           updated_at?: string
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: 'tasks_related_sub_goal_id_fkey'
+            columns: ['related_sub_goal_id']
+            isOneToOne: false
+            referencedRelation: 'sub_goals'
+            referencedColumns: ['id']
+          },
+        ]
       }
     }
     Views: {
@@ -65,7 +148,7 @@ export type Database = {
     }
     Functions: {
       get_all_time_metrics: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           active_tasks: number
           completed_tasks: number
@@ -73,10 +156,7 @@ export type Database = {
           total_tasks: number
         }[]
       }
-      has_local_tasks: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      has_local_tasks: { Args: never; Returns: boolean }
       migrate_local_tasks_to_user: {
         Args: { p_user_id: string }
         Returns: number

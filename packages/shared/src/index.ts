@@ -1,5 +1,11 @@
+/* entities */
+export * from './entities/goal'
+export * from './entities/task'
+
 /* pages */
+export { CreateGoalPage } from './pages/create-goal'
 export { DashboardPage } from './pages/dashboard'
+export { GoalsPage } from './pages/goals'
 export { LandingPage } from './pages/landing'
 export { SignInPage } from './pages/sign-in'
 export { TasksPage } from './pages/tasks'
